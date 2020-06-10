@@ -1,0 +1,7 @@
+{
+  "name": "Camera Survey",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
