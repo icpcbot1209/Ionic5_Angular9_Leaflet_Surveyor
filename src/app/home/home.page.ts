@@ -8,6 +8,14 @@ import {
   CameraPreviewDimensions,
 } from "@ionic-native/camera-preview/ngx";
 
+import {
+  Gyroscope,
+  GyroscopeOrientation,
+  GyroscopeOptions,
+} from "@ionic-native/gyroscope/ngx";
+
+import { Geolocation } from "@ionic-native/geolocation/ngx";
+
 @Component({
   selector: "app-home",
   templateUrl: "home.page.html",
@@ -20,9 +28,13 @@ export class HomePage implements OnInit {
   setZoom = 1;
   flashMode = "off";
   isToBack = false;
-  constructor(private cameraPreview: CameraPreview) { }
+  constructor(
+    private cameraPreview: CameraPreview,
+    private gyroscope: Gyroscope,
+    private geolocation: Geolocation
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   cameraPreviewOpts: CameraPreviewOptions = {
     x: 0,
@@ -37,7 +49,6 @@ export class HomePage implements OnInit {
   };
 
   startCameraAbove() {
-
     // this.cameraPreview.stopCamera().then(() => {
     this.isToBack = false;
     this.cameraPreview.startCamera({
@@ -132,5 +143,66 @@ export class HomePage implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  x: Number;
+  y: Number;
+  z: Number;
+
+  startGyroscope() {
+    let options: GyroscopeOptions = {
+      frequency: 1000,
+    };
+
+    this.gyroscope
+      .getCurrent(options)
+      .then((orientation: GyroscopeOrientation) => {
+        console.log(
+          orientation.x,
+          orientation.y,
+          orientation.z,
+          orientation.timestamp
+        );
+        this.x = orientation.x;
+        this.y = orientation.y;
+        this.z = orientation.z;
+      })
+      .catch();
+
+    this.gyroscope.watch().subscribe((orientation: GyroscopeOrientation) => {
+      console.log(
+        orientation.x,
+        orientation.y,
+        orientation.z,
+        orientation.timestamp
+      );
+      this.x = orientation.x;
+      this.y = orientation.y;
+      this.z = orientation.z;
+    });
+  }
+
+  latitude: Number;
+  longitude: Number;
+
+  startGeolocation() { 
+    this.geolocation
+      .getCurrentPosition()
+      .then((resp) => {
+        this.latitude = resp.coords.latitude
+        this.longitude = resp.coords.longitude
+      })
+      .catch((error) => {
+        console.log("Error getting location", error);
+      });
+
+    let watch = this.geolocation.watchPosition();
+    watch.subscribe((data) => {
+      // data can be a set of coordinates, or an error (if an error occurred).
+      // data.coords.latitude
+      // data.coords.longitude
+      this.latitude = data.coords.latitude;
+      this.longitude = data.coords.longitude;
+    });
   }
 }

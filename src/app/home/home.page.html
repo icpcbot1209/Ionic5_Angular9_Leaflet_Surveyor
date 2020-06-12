@@ -8,6 +8,16 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" [ngClass]="{'custom-ion-content': isToBack}">
+  <div>
+    <ion-button color="primary" (click)="startGyroscope()">Start Gyroscope</ion-button>
+    <div>{{x}}</div>
+    <div>{{y}}</div>
+    <div>{{z}}</div>
+  </div>
+  <ion-button color="primary" (click)="startGeolocation()">Start Geolocation</ion-button>
+  <div>{{latitude}}</div>
+  <div>{{longitude}}</div>
+
   <ion-button color="primary" (click)="startCameraAbove()">Start Front</ion-button>
   <ion-button color="primary" (click)="startCameraBelow()">Start Back</ion-button>
   <ion-button color="danger" (click)="stopCamera()">Stop Camera</ion-button>

@@ -9,6 +9,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CameraPreview } from '@ionic-native/camera-preview/ngx';
+import { Gyroscope } from "@ionic-native/gyroscope/ngx";
+import { Geolocation } from "@ionic-native/geolocation/ngx";
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +20,8 @@ import { CameraPreview } from '@ionic-native/camera-preview/ngx';
     StatusBar,
     SplashScreen,
     CameraPreview,
+    Gyroscope,
+    Geolocation,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
