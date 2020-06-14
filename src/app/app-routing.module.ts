@@ -13,10 +13,9 @@ const routes: Routes = [
     pathMatch: "full",
   },
   {
-    path: "camview",
-    loadChildren: () =>
-      import("./camview/camview.module").then((m) => m.CamviewPageModule),
-  },
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+  }
 ];
 
 @NgModule({

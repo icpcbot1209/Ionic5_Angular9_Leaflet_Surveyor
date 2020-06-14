@@ -11,6 +11,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { CameraPreview } from '@ionic-native/camera-preview/ngx';
 import { Gyroscope } from "@ionic-native/gyroscope/ngx";
 import { Geolocation } from "@ionic-native/geolocation/ngx";
+import {
+  DeviceOrientation,
+  DeviceOrientationCompassHeading,
+} from "@ionic-native/device-orientation/ngx";
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +26,7 @@ import { Geolocation } from "@ionic-native/geolocation/ngx";
     CameraPreview,
     Gyroscope,
     Geolocation,
+    DeviceOrientation,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
