@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  Location,
+  LocationStrategy,
+  PathLocationStrategy,
+} from "@angular/common";
 
 @Component({
-  selector: 'app-targetlist',
-  templateUrl: './targetlist.page.html',
-  styleUrls: ['./targetlist.page.scss'],
+  selector: "app-targetlist",
+  templateUrl: "./targetlist.page.html",
+  styleUrls: ["./targetlist.page.scss"],
 })
 export class TargetlistPage implements OnInit {
+  constructor(private location: Location) {}
 
-  constructor() { }
-
-  ngOnInit() {
+  ngOnInit() {}
+  goBack() {
+    this.location.back();
   }
-
 }
