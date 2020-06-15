@@ -14,7 +14,7 @@
     <!-- <ion-list-header>
       Recent Conversations
     </ion-list-header> -->
-      <ion-card href="target/1">
+      <ion-card (click)="navigateTo(1)">
         <ion-item>
           <ion-img [src]="'assets/img/images (1).jpg'" slot="start" style="height:100px; width:100px;"></ion-img>
           <ion-label>
@@ -24,7 +24,7 @@
           </ion-label>
         </ion-item>
       </ion-card>
-      <ion-card href="target/2">
+      <ion-card (click)="navigateTo(2)">
         <ion-item>
           <ion-img [src]="'assets/img/images (2).jpg'" slot="start" style="height:100px; width:100px;"></ion-img>
           <ion-label>
@@ -34,7 +34,7 @@
           </ion-label>
         </ion-item>
       </ion-card>
-      <ion-card href="target/3">
+      <ion-card (click)="navigateTo(3)">
         <ion-item>
           <ion-img [src]="'assets/img/images (3).jpg'" slot="start" style="height:100px; width:100px;"></ion-img>
           <ion-label>

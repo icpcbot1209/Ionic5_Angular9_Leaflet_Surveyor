@@ -1,9 +1,11 @@
-<ion-content [fullscreen]="true" color="dark">
+<ion-content [fullscreen]="true" color="secondary">
 
   <div id="container">
     <ion-img [src]="'assets/surveyor.png'" style="width: 50vmin; margin:auto; margin-bottom: 50px;"></ion-img>
-    <h1>Surveyor</h1>
+    <h1>SURVEYOR</h1>
+    <br/>
+    <br />
     <!-- <p><strong>DEMO VERSION</strong></p> -->
-    <ion-button style="width:50%;" href="/targetlist">Start</ion-button>
+    <ion-button style="width:50%;" size="large" (click)="onClickStart()">Start</ion-button>
   </div>
 </ion-content>

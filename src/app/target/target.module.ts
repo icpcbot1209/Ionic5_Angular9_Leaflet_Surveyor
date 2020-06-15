@@ -9,12 +9,7 @@ import { TargetPageRoutingModule } from './target-routing.module';
 import { TargetPage } from './target.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    TargetPageRoutingModule
-  ],
-  declarations: [TargetPage]
+  imports: [CommonModule, FormsModule, IonicModule, TargetPageRoutingModule],
+  declarations: [TargetPage],
 })
 export class TargetPageModule {}

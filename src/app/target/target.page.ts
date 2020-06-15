@@ -5,6 +5,7 @@ import {
   LocationStrategy,
   PathLocationStrategy,
 } from "@angular/common";
+import { TargetService } from "../services/target.service";
 
 @Component({
   selector: "app-target",
@@ -15,7 +16,8 @@ export class TargetPage implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private targetService: TargetService
   ) {}
 
   ngOnInit() {
@@ -33,4 +35,10 @@ export class TargetPage implements OnInit {
   goBack() {
     this.location.back();
   }
+
+  takePhoto() {
+    this.router.navigate(['/camera-view'])
+  }
+
+
 }

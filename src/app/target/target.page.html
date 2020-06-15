@@ -11,6 +11,14 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content class="ion-padding" fullscreen>
+  <div>
+    <ion-button fill="outline" (click)="takePhoto()">
+      <ion-icon name="camera" slot="start"></ion-icon>
+      Take Photo
+    </ion-button>
+  </div>
+  <div>
+    <img [src]="targetService.photo_url" style="width:100px; height:100px;">
+  </div>
 </ion-content>
