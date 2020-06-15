@@ -243,7 +243,7 @@ export class HomePage implements OnInit {
 
   startDoe() {
     if (window.DeviceOrientationEvent) {
-      window.addEventListener("deviceorientation", this.handleDoe, true);
+      window.addEventListener("deviceorientation", this.handleDoe.bind(this), true);
     }
   }
 

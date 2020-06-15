@@ -17,7 +17,7 @@ export class TargetPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private location: Location,
-    private targetService: TargetService
+    public targetService: TargetService
   ) {}
 
   ngOnInit() {

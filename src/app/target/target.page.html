@@ -19,6 +19,11 @@
     </ion-button>
   </div>
   <div>
-    <img [src]="targetService.photo_url" style="width:100px; height:100px;">
+    <img [src]="targetService.photo_url" style="width:100px; height:100px; object-fit: contain;">
+    <div>alpha: {{targetService.alpha}}</div>
+    <div>beta: {{targetService.beta}}</div>
+    <div>gamma: {{targetService.gamma}}</div>
+    <div>latitude: {{targetService.latitude}}</div>
+    <div>longitude: {{targetService.longitude}}</div>
   </div>
 </ion-content>
