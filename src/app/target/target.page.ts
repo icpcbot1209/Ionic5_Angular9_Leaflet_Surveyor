@@ -20,15 +20,31 @@ export class TargetPage implements OnInit {
     public targetService: TargetService
   ) {}
 
+  id = 0;
+  target = {
+    title: "",
+    latitude: 0,
+    longitude: 0,
+    height: 0,
+    isMeasured: false,
+    arrOrigin: [],
+  };
+
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       if (!paramMap.has("id")) {
         this.router.navigate(["/home"]);
         return;
       }
+      this.id = Number(paramMap.get("id"));
 
-      let id = paramMap.get("id");
-      console.log(id);
+      if (this.targetService.arrTarget.length === 0) {
+        this.targetService.readArrTarget(() => {
+          this.target = this.targetService.arrTarget[this.id];
+        });
+      } else {
+        this.target = this.targetService.arrTarget[this.id];
+      }
     });
   }
 
@@ -36,9 +52,18 @@ export class TargetPage implements OnInit {
     this.location.back();
   }
 
-  takePhoto() {
-    this.router.navigate(['/camera-view'])
+  onClickRemove(iOrigin) {
+    if (window.confirm("Remove this Origin?")) {
+      this.targetService.removeOrigin(this.id, iOrigin);    
+    }
   }
 
+  isCam = false;
+  onClickAdd() {
+    this.isCam = true;
+  }
 
+  closeCamview() { 
+    this.isCam = false;
+  }
 }

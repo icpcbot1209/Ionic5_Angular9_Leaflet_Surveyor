@@ -15,11 +15,18 @@ import {
   DeviceOrientation,
   DeviceOrientationCompassHeading,
 } from "@ionic-native/device-orientation/ngx";
+import { ScreenOrientation } from "@ionic-native/screen-orientation/ngx";
+import { IonicStorageModule } from "@ionic/storage";
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
+  ],
   providers: [
     StatusBar,
     SplashScreen,
@@ -27,7 +34,8 @@ import {
     Gyroscope,
     Geolocation,
     DeviceOrientation,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    ScreenOrientation,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]
 })

@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header *ngIf="!isCam">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button  shape="round" (click)="goBack()">
@@ -6,24 +6,57 @@
       </ion-button>
     </ion-buttons>
     <ion-title>
-      California Dress
+      {{target.title}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" fullscreen>
+<ion-content *ngIf="!isCam" class="ion-padding" fullscreen>
   <div>
-    <ion-button fill="outline" (click)="takePhoto()">
-      <ion-icon name="camera" slot="start"></ion-icon>
-      Take Photo
+    <ion-button fill="outline" (click)="onClickAdd()">
+      <ion-icon name="add-outline" slot="start"></ion-icon>
+      <ion-icon name="camera"></ion-icon>
     </ion-button>
   </div>
-  <div>
-    <img [src]="targetService.photo_url" style="width:100px; height:100px; object-fit: contain;">
-    <div>alpha: {{targetService.alpha}}</div>
-    <div>beta: {{targetService.beta}}</div>
-    <div>gamma: {{targetService.gamma}}</div>
-    <div>latitude: {{targetService.latitude}}</div>
-    <div>longitude: {{targetService.longitude}}</div>
+  <div style="display: flex; flex-wrap: wrap;">
+    <ion-card class="ion-padding" style="max-width: 40vw;"
+    *ngFor="let origin of target.arrOrigin; index as pos">
+
+      <p><strong>{{origin.title}}</strong></p>
+      <p>{{origin.timestamp}}</p>
+      <img [src]="origin.photoUrl===''?'assets/surveyor.png':origin.photoUrl" style="width:100px; height:100px; object-fit: contain;">
+      <div>latitude: {{origin.latitude}}</div>
+      <div>longitude: {{origin.longitude}}</div>
+      <div>heading: {{origin.heading}}</div>
+      
+      <!-- <div>alpha: {{origin.alpha}}</div>
+      <div>beta: {{origin.beta}}</div>
+      <div>gamma: {{origin.gamma}}</div> -->
+      <ion-button fill="clear"
+        style="height:max-content; color: grey; position: absolute; top:0px; right:0px;"
+        (click)="onClickRemove(pos)">    
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-button>
+
+    </ion-card>
+  </div>
+
+  <div style="text-align: center; margin:20px;"><strong>Result</strong></div>
+  <div *ngIf="!target.isMeasured">At least 2 measures required.</div>
+  <div *ngIf="target.isMeasured"
+   class="ion-padding"
+   style="border: 8px double lightblue;">
+    <strong>{{target.title}}</strong>
+    <hr/>
+    <div>latitude: {{target.latitude}}</div>
+    <div>longitude: {{target.longitude}}</div>
+    <div>height: {{target.height}}</div>
   </div>
 </ion-content>
+
+
+<app-camview *ngIf="isCam" 
+  (closeCamview)="closeCamview()"
+  [iTarget]="id"
+>
+</app-camview>

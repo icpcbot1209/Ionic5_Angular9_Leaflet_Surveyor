@@ -13,21 +13,34 @@ const routes: Routes = [
     pathMatch: "full",
   },
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    path: "home",
+    loadChildren: () =>
+      import("./home/home.module").then((m) => m.HomePageModule),
   },
   {
-    path: 'targetlist',
-    loadChildren: () => import('./targetlist/targetlist.module').then( m => m.TargetlistPageModule)
+    path: "targetlist",
+    loadChildren: () =>
+      import("./targetlist/targetlist.module").then(
+        (m) => m.TargetlistPageModule
+      ),
   },
   {
-    path: 'target/:id',
-    loadChildren: () => import('./target/target.module').then( m => m.TargetPageModule)
+    path: "target/:id",
+    loadChildren: () =>
+      import("./target/target.module").then((m) => m.TargetPageModule),
   },
   {
-    path: 'camera-view',
-    loadChildren: () => import('./camera-view/camera-view.module').then( m => m.CameraViewPageModule)
-  }
+    path: "camera-view",
+    loadChildren: () =>
+      import("./camera-view/camera-view.module").then(
+        (m) => m.CameraViewPageModule
+      ),
+  },
+  {
+    path: "test",
+    loadChildren: () =>
+      import("./test/test.module").then((m) => m.TestPageModule),
+  },
 ];
 
 @NgModule({

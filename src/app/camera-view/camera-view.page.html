@@ -1,4 +1,4 @@
-<ion-content fullscreen [class]="isCamera?'tarns-ion-content':'dark-ion-content'">
+<ion-content fullscreen [class]="isCameraOn?'tarns-ion-content':'dark-ion-content'">
   <!-- <ion-button shape="round" (click)="onClickCancel()" fill="clear"
     style="position:fixed; top:0; right:0;  color: red; z-index: 100; width: fit-content; height:80px;">
     <ion-icon name="close" style="font-size: 30px;"></ion-icon>
@@ -16,10 +16,14 @@
   </ion-range>
 
   <div>
-    <div>alpha: {{frontToBack}}</div>
-    <div>beta: {{leftToRight}}</div>
-    <div>gamma: {{rotateDegrees}}</div>
-    <br/>
+    <ion-button (click)="calibrate()">calibrate</ion-button>
+    <div>alpha: {{alpha1}}</div>
+    <div>beta: {{beta1}}</div>
+    <div>gamma: {{gamma1}}</div>
+    <br />
+    <div>magneticHeading: {{magneticHeading}}</div>
+    <div>trueHeading: {{trueHeading}}</div>
+    <br />
     <div>latitude: {{latitude}}</div>
     <div>longitude: {{longitude}}</div>
   </div>
