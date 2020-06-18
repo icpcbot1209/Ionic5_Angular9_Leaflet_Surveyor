@@ -40,7 +40,7 @@ export const doCalc = (
   }
 
   // geo_A, geo_B => len_AB
-  let len_AB = geolib.getDistance(geo_A, geo_B, 1);
+  let len_AB = geolib.getDistance(geo_A, geo_B, 0.1);
   console.log("len_AB = ", len_AB);
 
   // len_AB, alpha_T, alpha_B => len_AT
@@ -67,5 +67,59 @@ export const getCenter = (arr) => {
   return geolib.getCenter(arr);
 }
 
+
+export const distance = (geo_A, geo_B) => {
+  return geolib.getDistance(geo_A, geo_B, 0.1);
+};
+
+
+const rotate = (pitch, roll, yaw, p) => {
+  let cosa = Math.cos(yaw);
+  let sina = Math.sin(yaw);
+
+  let cosb = Math.cos(pitch);
+  let sinb = Math.sin(pitch);
+
+  let cosc = Math.cos(roll);
+  let sinc = Math.sin(roll);
+
+  let Axx = cosa * cosb;
+  let Axy = cosa * sinb * sinc - sina * cosc;
+  let Axz = cosa * sinb * cosc + sina * sinc;
+
+  let Ayx = sina * cosb;
+  let Ayy = sina * sinb * sinc + cosa * cosc;
+  let Ayz = sina * sinb * cosc - cosa * sinc;
+
+  let Azx = -sinb;
+  let Azy = cosb * sinc;
+  let Azz = cosb * cosc;
+
+  // for (let i = 0; i < points.length; i++) {
+  let px = p.x;
+  let py = p.y;
+  let pz = p.z;
+
+  let x = Axx * px + Axy * py + Axz * pz;
+  let y = Ayx * px + Ayy * py + Ayz * pz;
+  let z = Azx * px + Azy * py + Azz * pz;
+  // }
+
+  return { x, y, z };
+}
+
+
+export const elevation = (pitch, roll, yaw) => { 
+  let { x, y, z } = rotate(pitch, roll, yaw, { x: 0, y: 0, z: 1 });
+  let L = Math.sqrt(x * x + y * y + z * z);
+  let l = Math.sqrt(x * x + y * y);
+  if (L < 0.01) return;
+  let ret = Math.acos(l / L);
+  if (z > 0) ret = -1 * ret;
+  return ret;
+}
+
+export const deg2rad = (deg) => (deg * Math.PI / 180);
+export const rad2deg = (rad) => (rad * 180 / Math.PI);
 
 

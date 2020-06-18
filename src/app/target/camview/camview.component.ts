@@ -8,7 +8,7 @@ import {
 } from "@ionic-native/device-orientation/ngx";
 
 import { TargetService } from "../../services/target.service";
-
+import * as common from '../../common';
 
 @Component({
   selector: "app-camview",
@@ -42,6 +42,7 @@ export class CamviewComponent implements OnInit {
       this.startCamera();
       this.startGeolocation();
       this.startDeviceOrientationLooking();
+      this.startAngle();
     } catch (err) {
       console.log(err);
     }
@@ -114,7 +115,8 @@ export class CamviewComponent implements OnInit {
         latitude: this.latitude,
         longitude: this.longitude,
         heading: this.heading,
-      }); 
+        elevation: this.elevation
+      });
     }
     this.closeCamview.emit();
   }
@@ -143,6 +145,7 @@ export class CamviewComponent implements OnInit {
 
   heading = 0;
   processHeading = null;
+
   startDeviceOrientationLooking() {
     // Get the device current compass heading
     this.deviceOrientation.getCurrentHeading().then(
@@ -161,17 +164,6 @@ export class CamviewComponent implements OnInit {
         this.heading = data.trueHeading;
       });
 
-    // if (window.DeviceOrientationEvent) {
-    //   window.addEventListener("deviceorientation", (event) => {
-    //     // alpha: rotation around z-axis
-    //     this.alpha = event.alpha;
-    //     // beta: front back motion
-    //     this.beta = event.beta;
-    //     // gamma: left to right
-    //     this.gamma =event.gamma;
-    //   }, true);
-    // }
-
     // window.addEventListener(
     //   "compassneedscalibration",
     //   function (event) {
@@ -187,9 +179,33 @@ export class CamviewComponent implements OnInit {
   // calibrate() {
   //   window.dispatchEvent(new Event("compassneedscalibration"));
   // }
+
+  alpha = 0;
+  beta = 0;
+  gamma = 0;
+  elevation = 0;
+  startAngle() {
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener("deviceorientation", (event) => {
+        // alpha: rotation around z-axis
+        this.alpha = event.alpha;
+        // beta: front back motion
+        this.beta = event.beta;
+        // gamma: left to right
+        this.gamma = event.gamma;
+
+        let pitch = common.deg2rad(this.beta);
+        let roll = common.deg2rad(this.gamma);
+        let yaw = common.deg2rad(this.alpha);
+
+        this.elevation = common.rad2deg(common.elevation(pitch, roll, yaw));
+      }, true);
+    }
+  }
+
 }
 
 
-const r3 = (n) => {
-  return Math.round(n * 1000) / 1000;
-};
+// const r3 = (n) => {
+//   return Math.round(n * 1000) / 1000;
+// };

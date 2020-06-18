@@ -47,12 +47,14 @@ export class TargetService {
     this.saveArrTarget();
   }
 
-  doCalc(iTarget) { 
+  doCalc(iTarget) {
     let arrGeoT = [];
+    let arrH = [];
+
     let target = this.arrTarget[iTarget];
     let len = target.arrOrigin.length;
     if (len < 2) return;
-    let flag = []; 
+    let flag = [];
     for (let i = 0; i < len; i++) {
       let row = [];
       for (let j = 0; j < len; j++) row.push(false);
@@ -72,22 +74,36 @@ export class TargetService {
         let azi_AT = A.heading;
         let azi_BT = B.heading;
 
-        alert(i+", "+j);
+        // alert(i+", "+j);
         let geo_T = common.doCalc(geo_A, geo_B, azi_AT, azi_BT, false);
         arrGeoT.push(geo_T);
+
+        let L1 = common.distance(geo_A, geo_T);
+        let H1 = L1 * Math.tan(common.deg2rad(A.elevation));
+        let L2 = common.distance(geo_B, geo_T);
+        let H2 = L2 * Math.tan(common.deg2rad(B.elevation));
+
+        arrH.push(H1);
+        arrH.push(H2);
       }
     }
   
     let geo_T = common.getCenter(arrGeoT);
+    let H = 0;
+    arrH.forEach((h) => (H += h));
+    if (arrH.length > 0) H /= arrH.length;
+
+
     if (geo_T !== false) {
       this.arrTarget[iTarget].latitude = geo_T.latitude;
       this.arrTarget[iTarget].longitude = geo_T.longitude;
+      this.arrTarget[iTarget].height = H;
       this.arrTarget[iTarget].isMeasured = true;
       this.saveArrTarget();
     }
 
   }
 
-  
+
 
 }
