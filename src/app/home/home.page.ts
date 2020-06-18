@@ -26,9 +26,6 @@ export class HomePage implements OnInit {
   }
 
   initAppData() {
-    // test only
-    this.targetService.addTarget(arr_target[0]);
-    this.targetService.saveArrTarget();
 
     // read arrTarget
     this.targetService.readArrTarget(() => {
@@ -37,37 +34,3 @@ export class HomePage implements OnInit {
   }
 }
 
-
-const arr_target = [
-  {
-    title: "Statue of Liberty",
-    isMeasured: true,
-    latitude: 40.689371,
-    longitude: -74.04449,
-    height: 93,
-    arrOrigin: [
-      {
-        title: "At the Flag Plazza",
-        photoUrl: "",
-        timestamp: "",
-        latitude: 40.693054,
-        longitude: -74.056314,
-        heading: 110.6,
-        alpha: 0,
-        beta: 0,
-        gamma: 0
-      },
-      {
-        title: "At the Hostpital Morge",
-        photoUrl: "",
-        timestamp: "",
-        latitude: 40.697999,
-        longitude: -74.042324,
-        heading: 190.3,
-        alpha: 0,
-        beta: 0,
-        gamma: 0
-      }
-    ],
-  },
-];

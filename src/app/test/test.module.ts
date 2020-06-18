@@ -8,6 +8,8 @@ import { TestPageRoutingModule } from './test-routing.module';
 
 import { TestPage } from './test.page';
 
+import { MapComponent } from './map/map.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +17,6 @@ import { TestPage } from './test.page';
     IonicModule,
     TestPageRoutingModule
   ],
-  declarations: [TestPage]
+  declarations: [TestPage, MapComponent]
 })
 export class TestPageModule {}

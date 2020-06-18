@@ -28,6 +28,7 @@
       <div>latitude: {{origin.latitude}}</div>
       <div>longitude: {{origin.longitude}}</div>
       <div>heading: {{origin.heading}}</div>
+      <div>elevation: {{origin.elevation}}</div>
       
       <!-- <div>alpha: {{origin.alpha}}</div>
       <div>beta: {{origin.beta}}</div>
@@ -45,12 +46,17 @@
   <div *ngIf="!target.isMeasured">At least 2 measures required.</div>
   <div *ngIf="target.isMeasured"
    class="ion-padding"
-   style="border: 8px double lightblue;">
+   style="border: 8px double lightblue; display:flex;">
+   <div style="flex:1;">
     <strong>{{target.title}}</strong>
-    <hr/>
+    <hr />
     <div>latitude: {{target.latitude}}</div>
     <div>longitude: {{target.longitude}}</div>
     <div>height: {{target.height}}</div>
+   </div>
+   <div>
+     <ion-button (click)="toggleShowMap(true)">Show Map</ion-button>
+   </div>
   </div>
 </ion-content>
 
@@ -60,3 +66,6 @@
   [iTarget]="id"
 >
 </app-camview>
+
+<app-mapview [iTarget]="id" (closeMapview)="toggleShowMap(false)" *ngIf="isShowMap">
+</app-mapview>

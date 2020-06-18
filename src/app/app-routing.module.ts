@@ -30,13 +30,6 @@ const routes: Routes = [
       import("./target/target.module").then((m) => m.TargetPageModule),
   },
   {
-    path: "camera-view",
-    loadChildren: () =>
-      import("./camera-view/camera-view.module").then(
-        (m) => m.CameraViewPageModule
-      ),
-  },
-  {
     path: "test",
     loadChildren: () =>
       import("./test/test.module").then((m) => m.TestPageModule),

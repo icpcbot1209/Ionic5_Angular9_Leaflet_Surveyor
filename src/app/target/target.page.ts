@@ -26,6 +26,8 @@ export class TargetPage implements OnInit {
     latitude: 0,
     longitude: 0,
     height: 0,
+    arrGeoT: [],
+    arrH: [],
     isMeasured: false,
     arrOrigin: [],
   };
@@ -45,6 +47,8 @@ export class TargetPage implements OnInit {
       } else {
         this.target = this.targetService.arrTarget[this.id];
       }
+
+      console.log(this.target);
     });
   }
 
@@ -66,4 +70,10 @@ export class TargetPage implements OnInit {
   closeCamview() { 
     this.isCam = false;
   }
+
+  isShowMap = false;
+  toggleShowMap(tf) { 
+    this.isShowMap = tf;
+  }
+  
 }

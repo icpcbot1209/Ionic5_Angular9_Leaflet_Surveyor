@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { CameraViewPage } from './camera-view.page';
+import { MapviewComponent } from './mapview.component';
 
-describe('CameraViewPage', () => {
-  let component: CameraViewPage;
-  let fixture: ComponentFixture<CameraViewPage>;
+describe('MapviewComponent', () => {
+  let component: MapviewComponent;
+  let fixture: ComponentFixture<MapviewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CameraViewPage ],
+      declarations: [ MapviewComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CameraViewPage);
+    fixture = TestBed.createComponent(MapviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

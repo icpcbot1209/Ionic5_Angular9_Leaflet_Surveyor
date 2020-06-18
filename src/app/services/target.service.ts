@@ -15,6 +15,13 @@ export class TargetService {
   readArrTarget(callback) {
     this.storage.get("arrTarget").then((val) => {
       this.arrTarget = JSON.parse(val);
+
+      if (!this.arrTarget || this.arrTarget.length == 0) {
+        // test only
+        this.addTarget(arr_target[0]);
+      }
+
+
       callback();
     });
   }
@@ -48,6 +55,7 @@ export class TargetService {
   }
 
   doCalc(iTarget) {
+    let arrPair = [];
     let arrGeoT = [];
     let arrH = [];
 
@@ -75,6 +83,7 @@ export class TargetService {
         let azi_BT = B.heading;
 
         // alert(i+", "+j);
+        arrPair.push({ i, j });
         let geo_T = common.doCalc(geo_A, geo_B, azi_AT, azi_BT, false);
         arrGeoT.push(geo_T);
 
@@ -95,6 +104,9 @@ export class TargetService {
 
 
     if (geo_T !== false) {
+      this.arrTarget[iTarget].arrPair = arrPair;
+      this.arrTarget[iTarget].arrGeoT = arrGeoT;
+      this.arrTarget[iTarget].arrH = arrH;
       this.arrTarget[iTarget].latitude = geo_T.latitude;
       this.arrTarget[iTarget].longitude = geo_T.longitude;
       this.arrTarget[iTarget].height = H;
@@ -103,7 +115,5 @@ export class TargetService {
     }
 
   }
-
-
 
 }

@@ -7,9 +7,10 @@ import { TargetPageRoutingModule } from './target-routing.module';
 import { TargetPage } from './target.page';
 
 import { CamviewComponent } from "./camview/camview.component";
+import { MapviewComponent } from './mapview/mapview.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, TargetPageRoutingModule],
-  declarations: [TargetPage, CamviewComponent],
+  declarations: [TargetPage, CamviewComponent, MapviewComponent],
 })
 export class TargetPageModule {}
