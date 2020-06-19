@@ -1,9 +1,7 @@
 <ion-header *ngIf="!isCam">
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-buttons slot="start">
-      <ion-button  shape="round" (click)="goBack()">
-        <ion-icon name="arrow-back"></ion-icon>
-      </ion-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>
       {{target.title}}
@@ -12,52 +10,54 @@
 </ion-header>
 
 <ion-content *ngIf="!isCam" class="ion-padding" fullscreen>
-  <div>
-    <ion-button fill="outline" (click)="onClickAdd()">
-      <ion-icon name="add-outline" slot="start"></ion-icon>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="dark" (click)="onClickAdd()">
       <ion-icon name="camera"></ion-icon>
-    </ion-button>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div *ngIf="!target.isMeasured" style="text-align: center;">To measure, at least 2 origin data required</div>
+  <div *ngIf="target.isMeasured" class="ion-padding" style="border: 8px double grey; display:flex;">
+    <div style="flex:1;">
+      <strong>{{target.title}}</strong>
+      <hr />
+      <div>latitude: {{r7(target.latitude)}}</div>
+      <div>longitude: {{r7(target.longitude)}}</div>
+      <div>height: {{r7(target.height)}}</div>
+    </div>
+    <div>
+      <ion-button color="dark" (click)="toggleShowMap(true)">
+        <ion-icon name="map-outline"></ion-icon>
+        Map
+      </ion-button>
+    </div>
   </div>
+
   <div style="display: flex; flex-wrap: wrap;">
-    <ion-card class="ion-padding" style="max-width: 40vw;"
+    <ion-card
     *ngFor="let origin of target.arrOrigin; index as pos">
 
-      <p><strong>{{origin.title}}</strong></p>
-      <p>{{origin.timestamp}}</p>
-      <img [src]="origin.photoUrl===''?'assets/surveyor.png':origin.photoUrl" style="width:100px; height:100px; object-fit: contain;">
-      <div>latitude: {{origin.latitude}}</div>
-      <div>longitude: {{origin.longitude}}</div>
-      <div>heading: {{origin.heading}}</div>
-      <div>elevation: {{origin.elevation}}</div>
-      
-      <!-- <div>alpha: {{origin.alpha}}</div>
-      <div>beta: {{origin.beta}}</div>
-      <div>gamma: {{origin.gamma}}</div> -->
-      <ion-button fill="clear"
-        style="height:max-content; color: grey; position: absolute; top:0px; right:0px;"
-        (click)="onClickRemove(pos)">    
-        <ion-icon name="close-circle-outline"></ion-icon>
-      </ion-button>
+      <ion-card-content>
+        
+        <p>{{origin.timestamp}}</p>
+        <img [src]="origin.photoUrl===''?'assets/surveyor.png':origin.photoUrl" style="width:100px; height:100px; object-fit: contain;">
+        <div>latitude: {{origin.latitude}}</div>
+        <div>longitude: {{origin.longitude}}</div>
+        <div>heading: {{r7(origin.heading)}}</div>
+        <div>elevation: {{r7(origin.elevation)}}</div>       
+
+        <ion-fab vertical="top" horizontal="end" slot="fixed">
+          <ion-fab-button size="small"  color="light" (click)="onClickRemove(pos)">
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+
+      </ion-card-content>
 
     </ion-card>
   </div>
 
-  <div style="text-align: center; margin:20px;"><strong>Result</strong></div>
-  <div *ngIf="!target.isMeasured">At least 2 measures required.</div>
-  <div *ngIf="target.isMeasured"
-   class="ion-padding"
-   style="border: 8px double lightblue; display:flex;">
-   <div style="flex:1;">
-    <strong>{{target.title}}</strong>
-    <hr />
-    <div>latitude: {{target.latitude}}</div>
-    <div>longitude: {{target.longitude}}</div>
-    <div>height: {{target.height}}</div>
-   </div>
-   <div>
-     <ion-button (click)="toggleShowMap(true)">Show Map</ion-button>
-   </div>
-  </div>
 </ion-content>
 
 

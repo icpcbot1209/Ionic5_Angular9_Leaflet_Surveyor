@@ -58,7 +58,7 @@ export class TargetPage implements OnInit {
 
   onClickRemove(iOrigin) {
     if (window.confirm("Remove this Origin?")) {
-      this.targetService.removeOrigin(this.id, iOrigin);    
+      this.targetService.removeOrigin(this.id, iOrigin);
     }
   }
 
@@ -67,13 +67,16 @@ export class TargetPage implements OnInit {
     this.isCam = true;
   }
 
-  closeCamview() { 
+  closeCamview() {
     this.isCam = false;
   }
 
   isShowMap = false;
-  toggleShowMap(tf) { 
+  toggleShowMap(tf) {
     this.isShowMap = tf;
   }
-  
+
+  r7 = (n) => {
+    return Math.round(n * 10000000) / 10000000;
+  };
 }

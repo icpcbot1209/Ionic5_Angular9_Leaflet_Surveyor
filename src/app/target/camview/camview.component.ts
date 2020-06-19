@@ -104,23 +104,20 @@ export class CamviewComponent implements OnInit {
   }
 
   async confirmResult(imageData) {
+    this.targetService.addOrigin(this.iTarget, {
+      photoUrl: "data:image/jpeg;base64," + imageData,
+      timestamp: new Date().toLocaleString(),
+      latitude: this.latitude,
+      longitude: this.longitude,
+      heading: this.heading,
+      elevation: this.elevation,
+    });
+
     await this.endAll();
-    let title = window.prompt("Origin Title:", "");
-    if (title === null || title === "") {
-    } else {
-      this.targetService.addOrigin(this.iTarget, {
-        title: title,
-        photoUrl: "data:image/jpeg;base64," + imageData,
-        timestamp: new Date().toLocaleString(),
-        latitude: this.latitude,
-        longitude: this.longitude,
-        heading: this.heading,
-        elevation: this.elevation
-      });
-    }
     this.closeCamview.emit();
   }
 
+  isGeoLoaded = false;
   latitude = 0;
   longitude = 0;
   processGeo = null;
@@ -128,6 +125,7 @@ export class CamviewComponent implements OnInit {
     this.geolocation
       .getCurrentPosition()
       .then((resp) => {
+        this.isGeoLoaded = true;
         this.latitude = resp.coords.latitude;
         this.longitude = resp.coords.longitude;
       })
@@ -186,26 +184,30 @@ export class CamviewComponent implements OnInit {
   elevation = 0;
   startAngle() {
     if (window.DeviceOrientationEvent) {
-      window.addEventListener("deviceorientation", (event) => {
-        // alpha: rotation around z-axis
-        this.alpha = event.alpha;
-        // beta: front back motion
-        this.beta = event.beta;
-        // gamma: left to right
-        this.gamma = event.gamma;
+      window.addEventListener(
+        "deviceorientation",
+        (event) => {
+          // alpha: rotation around z-axis
+          this.alpha = event.alpha;
+          // beta: front back motion
+          this.beta = event.beta;
+          // gamma: left to right
+          this.gamma = event.gamma;
 
-        let pitch = common.deg2rad(this.beta);
-        let roll = common.deg2rad(this.gamma);
-        let yaw = common.deg2rad(this.alpha);
+          let pitch = common.deg2rad(this.beta);
+          let roll = common.deg2rad(this.gamma);
+          let yaw = common.deg2rad(this.alpha);
 
-        this.elevation = common.rad2deg(common.elevation(pitch, roll, yaw));
-      }, true);
+          this.elevation = common.rad2deg(common.elevation(pitch, roll, yaw));
+        },
+        true
+      );
     }
   }
 
+  r7 = (n) => {
+    return Math.round(n * 10000000) / 10000000;
+  };
 }
 
 
-// const r3 = (n) => {
-//   return Math.round(n * 1000) / 1000;
-// };

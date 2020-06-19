@@ -1,37 +1,47 @@
 <ion-content fullscreen [class]="isCameraOn?'tarns-ion-content':'dark-ion-content'">
-  <ion-button shape="round" (click)="onClickCancel()" fill="clear"
+  <!-- <ion-button shape="round" (click)="onClickCancel()" fill="clear"
     style="position:fixed; top:0; right:0;  color: red; z-index: 100; width: fit-content; height:80px;">
     <ion-icon name="close" style="font-size: 30px;"></ion-icon>
-  </ion-button>
+  </ion-button> -->
+
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button size="small" color="dark" (click)="onClickCancel()">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
   <div
     style="position:fixed; top:0; left:0; width:100%; height:100%; display: flex; align-items: center; justify-content: center; z-index: -1;">
     <ion-img src="assets/cursor.png"></ion-img>
   </div>
 
-  <div style="color: white;">
+  <div style="color: white;" class="ion-padding">
     <div>latitude: {{latitude}}</div>
     <div>longitude: {{longitude}}</div>
-    <br />
-    <div>heading: {{heading}}</div>
-    <br />
-    <div>alpha: {{alpha}}</div>
-    <div>beta: {{beta}}</div>
-    <div>gamma: {{gamma}}</div>
-    <br />
-    <div>elevation: {{elevation}}</div>
+    <div>heading: {{r7(heading)}}</div>
+    <div>elevation: {{r7(elevation)}}</div>
+    <!-- <br />
+    <div>alpha: {{r6(alpha)}}</div>
+    <div>beta: {{r6(beta)}}</div>
+    <div>gamma: {{r6(gamma)}}</div> -->
   </div>
 
   <div
-    style="position: fixed; bottom:0; right:0; width:100%; height:120px; display: flex; align-items: center; justify-content: center;"
-    (click)="takePicture()">
-    <ion-range min="1" max="100" pin color="secondary" [(ngModel)]="zoomRatio" (ionChange)="changeZoom()">
-      <ion-icon slot="start" size="small" name="search-outline"></ion-icon>
-      <ion-icon slot="end" name="search-outline"></ion-icon>
+    style="position: fixed; bottom:0; right:0; width:100%;">
+
+    <ion-range min="1" max="100" pin color="secondary"
+    [(ngModel)]="zoomRatio" (ionChange)="changeZoom()"
+    vertical="bottom" horizontal="center" slot="fixed" 
+     style="margin-bottom: 150px;">
+      <ion-icon slot="start" name="remove-circle-outline" color="light"></ion-icon>
+      <ion-icon slot="end" name="add-circle-outline" color="light"></ion-icon>
     </ion-range>
 
-    <ion-button style="font-size: xx-large; width: fit-content; height: 80px;" shape="round">
-      <ion-icon name="camera"></ion-icon>
-    </ion-button>
+    <ion-fab vertical="bottom" horizontal="center" slot="fixed"  style="margin-bottom: 50px;">
+      <ion-fab-button color="primary" (click)="takePicture()" [disabled]="!this.isGeoLoaded">
+        <ion-icon name="camera"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
   </div>
 </ion-content>

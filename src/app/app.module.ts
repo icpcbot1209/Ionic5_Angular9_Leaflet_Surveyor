@@ -17,6 +17,7 @@ import {
 } from "@ionic-native/device-orientation/ngx";
 import { ScreenOrientation } from "@ionic-native/screen-orientation/ngx";
 import { IonicStorageModule } from "@ionic/storage";
+import { EmailComposer } from "@ionic-native/email-composer/ngx";
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +36,7 @@ import { IonicStorageModule } from "@ionic/storage";
     Geolocation,
     DeviceOrientation,
     ScreenOrientation,
+    EmailComposer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]

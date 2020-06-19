@@ -52,14 +52,14 @@ export class MapviewComponent implements AfterViewInit {
         radius: 1
       }).addTo(this.map);
 
-      circleA.bindPopup(A.title);
+      circleA.bindPopup(''+i);
     });
 
     this.target.arrGeoT.forEach((geoT, k) => { 
       let { i, j } = this.target.arrPair[k];
       let A = this.target.arrOrigin[i];
       let B = this.target.arrOrigin[j];
-      alert(i + ', ' + j);
+
       let polygonA = L.polygon([
         [geoT.latitude, geoT.longitude],
         [A.latitude, A.longitude]

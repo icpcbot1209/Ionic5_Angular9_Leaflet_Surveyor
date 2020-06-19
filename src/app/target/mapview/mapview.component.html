@@ -1,8 +1,10 @@
 <div class="map-container">
-  <ion-icon name="close-circle-outline" 
-    style="position: fixed; top:0; right:0; z-index: 1000; font-size: xx-large;"
-    (click)="onClickClose()">
-  </ion-icon>
+
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button size="small" color="light" (click)="onClickClose()">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
   <div class="map-frame">
     <div id="map"></div>

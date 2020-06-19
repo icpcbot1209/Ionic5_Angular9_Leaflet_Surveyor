@@ -1,10 +1,9 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-buttons slot="start">
-      <ion-button shape="round" (click)="goBack()">
-        <ion-icon name="arrow-back"></ion-icon>
-      </ion-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
+
     <ion-title>Target List</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -14,37 +13,45 @@
     <ion-card 
       *ngFor="let target of targetService.arrTarget;  index as pos"
       (click)="navigateTo(pos)">
-
-      <ion-item 
-      style="display: flex;">
-        <ion-img 
-          [src]="(target.arrOrigin.length>0 && target.arrOrigin[0].photoUrl!=='')? 
-            target.arrOrigin[0].photoUrl : 
-            'assets/surveyor.png'"
-          slot="start" 
-          style="height:100px; width:100px;">
-        </ion-img>
-        
-        <ion-label style="flex:1;">
-          <h2>{{target.title}}</h2>
-          <h3>latitude = {{target.latitude}}</h3>
-          <h3>longitude = {{target.longitude}}</h3>
-          <h3>height = {{target.height}} m</h3>
+      <ion-card-content>      
+        <ion-item style="display: flex;">
+          <ion-img 
+            [src]="(target.arrOrigin.length>0 && target.arrOrigin[0].photoUrl!=='')? 
+              target.arrOrigin[0].photoUrl : 
+              'assets/surveyor.png'"
+            slot="start" 
+            style="height:100px; width:100px;">
+          </ion-img>
           
-        </ion-label>
-
-        <ion-button shape="round" fill="clear"
-          style="font-size: 30px; height:max-content; color:grey;" (click)="onClickRemove(pos)">
-          <ion-icon name="close-circle-outline"></ion-icon>
-        </ion-button>
-      </ion-item>
+          <ion-label style="flex:1;">
+            <h2>{{target.title}}</h2>
+            <h3>latitude = {{r7(target.latitude)}}</h3>
+            <h3>longitude = {{r7(target.longitude)}}</h3>
+            <h3>height = {{r7(target.height)}} m</h3>
+            
+          </ion-label>
+        </ion-item>
+        <ion-fab vertical="top" horizontal="end" slot="fixed">
+          <ion-fab-button size="small" color="light" (click)="onClickRemove(pos)">
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+      </ion-card-content>
 
     </ion-card>
 
   </ion-list>
 
-  <ion-button shape="round" fill="clear" style="font-size: 50px; height:max-content; position:fixed; bottom:30px; right:10px;"
-  (click)="onClickAdd()">
-    <ion-icon name="add-circle-outline" ></ion-icon>
-  </ion-button>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="dark" (click)="onClickAdd()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button color="dark" (click)="sendResultEmail()">
+      <ion-icon name="send-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>

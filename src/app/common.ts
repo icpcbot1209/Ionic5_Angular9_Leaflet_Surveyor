@@ -1,5 +1,41 @@
 import * as geolib from "geolib";
 
+export const adminEmail = "icpcbot1209@gmail.com";
+
+export const arr_target = [
+  {
+    title: "Statue of Liberty",
+    isMeasured: true,
+    latitude: 40.689371,
+    longitude: -74.04449,
+    height: 93,
+    arrOrigin: [
+      {
+        photoUrl: "",
+        timestamp: "",
+        latitude: 40.693054,
+        longitude: -74.056314,
+        heading: 110.6,
+        alpha: 0,
+        beta: 0,
+        gamma: 0,
+      },
+      {
+        photoUrl: "",
+        timestamp: "",
+        latitude: 40.697999,
+        longitude: -74.042324,
+        heading: 190.3,
+        alpha: 0,
+        beta: 0,
+        gamma: 0,
+      },
+    ],
+    arrPair: [{ i: 0, j: 1 }],
+    arrGeoT: [{ latitude: 40.689371, longitude: -74.04449 }],
+  },
+];
+
 export const ALPHA_EPS = 0.1;
 
 // Tested on Google Map
