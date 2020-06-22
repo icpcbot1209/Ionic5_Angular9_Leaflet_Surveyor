@@ -33,7 +33,6 @@ export class CamviewComponent implements OnInit {
   isCameraOn: boolean = false;
 
   ionViewWillLeave() {
-    console.log("ionViewWillLeave");
     this.endAll();
   }
 

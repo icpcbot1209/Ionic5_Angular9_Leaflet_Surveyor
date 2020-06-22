@@ -48,12 +48,19 @@ export class TargetPage implements OnInit {
         this.target = this.targetService.arrTarget[this.id];
       }
 
-      console.log(this.target);
     });
   }
 
   goBack() {
     this.location.back();
+  }
+
+  editTitle() {
+    let title = window.prompt("Please enter the title:", "");
+    if (title === null || title === "") {
+    } else {
+      this.targetService.editTitle(this.id, title);
+    }
   }
 
   onClickRemove(iOrigin) {

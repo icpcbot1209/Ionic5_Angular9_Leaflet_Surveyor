@@ -62,10 +62,6 @@ export const doCalc = (
   let alpha_B = Alpha_Triangle(azi_BA - azi_BT);
   let alpha_T = Alpha_Triangle(180 - alpha_A - alpha_B);
 
-  console.log("alpha_A = ", alpha_A);
-  console.log("alpha_B = ", alpha_B);
-  console.log("alpha_T = ", alpha_T);
-
   // validation
   if (
     alpha_A < ALPHA_EPS ||
@@ -77,13 +73,11 @@ export const doCalc = (
 
   // geo_A, geo_B => len_AB
   let len_AB = geolib.getDistance(geo_A, geo_B, 0.1);
-  console.log("len_AB = ", len_AB);
 
   // len_AB, alpha_T, alpha_B => len_AT
   let len_AT =
     (len_AB * Math.sin((alpha_B * Math.PI) / 180)) /
     Math.sin((alpha_T * Math.PI) / 180);
-  console.log("len_AT = ", len_AT);
 
   // geo_A, azi_AT, len_AT => geo_T
   let geo_T = geolib.computeDestinationPoint(geo_A, len_AT, azi_AT);

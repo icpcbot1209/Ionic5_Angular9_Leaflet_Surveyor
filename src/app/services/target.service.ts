@@ -42,6 +42,11 @@ export class TargetService {
     this.saveArrTarget();
   }
 
+  editTitle(i, title) {
+    this.arrTarget[i].title = title;
+    this.saveArrTarget();
+  }
+
   addOrigin(iTarget, origin) {
     this.arrTarget[iTarget].arrOrigin.push(origin);
     this.doCalc(iTarget);
@@ -51,6 +56,8 @@ export class TargetService {
   removeOrigin(iTarget, iOrigin) {
     this.arrTarget[iTarget].arrOrigin.splice(iOrigin, 1);
     this.doCalc(iTarget);
+
+    // alert("Not enough data to determine target.");
     this.saveArrTarget();
   }
 
@@ -99,7 +106,6 @@ export class TargetService {
 
     if (arrGeoT.length === 0) {
       target.isMeasured = false;
-      alert("Not enough data to determine target.");
       this.saveArrTarget();
       return;
     }

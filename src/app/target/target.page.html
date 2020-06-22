@@ -18,40 +18,41 @@
   </ion-fab>
 
   <div *ngIf="!target.isMeasured" style="text-align: center;">To measure, at least 2 origin data required</div>
-  <div *ngIf="target.isMeasured" class="ion-padding" style="border: 8px double grey; display:flex;">
-    <div style="flex:1;">
-      <strong>{{target.title}}</strong>
-      <hr />
-      <div>latitude: {{r7(target.latitude)}}</div>
-      <div>longitude: {{r7(target.longitude)}}</div>
-      <div>height: {{r7(target.height)}}</div>
-    </div>
-    <div>
-      <ion-button color="dark" (click)="toggleShowMap(true)">
-        <ion-icon name="map-outline"></ion-icon>
-        Map
-      </ion-button>
-    </div>
+  <div *ngIf="target.isMeasured">
+    <ion-card>
+      <ion-card-content style="border: 8px double grey;">
+        <strong (click)="editTitle()">{{target.title}}</strong>
+        <ion-icon name="create-outline" (click)="editTitle()"></ion-icon>
+        <hr />
+        <div>latitude: {{r7(target.latitude)}}</div>
+        <div>longitude: {{r7(target.longitude)}}</div>
+        <div>height: {{r7(target.height)}}</div>
+        
+        <ion-fab vertical="top" horizontal="end" slot="fixed">
+          <ion-fab-button (click)="toggleShowMap(true)">
+            <ion-icon name="location-outline"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+      </ion-card-content>
+    </ion-card>
   </div>
 
   <div style="display: flex; flex-wrap: wrap;">
     <ion-card
     *ngFor="let origin of target.arrOrigin; index as pos">
 
-      <ion-card-content>
-        
-        <p>{{origin.timestamp}}</p>
+      <ion-card-content style="position: relative;">
+        <div><strong>Origin {{pos+1}}</strong></div>
         <img [src]="origin.photoUrl===''?'assets/surveyor.png':origin.photoUrl" style="width:100px; height:100px; object-fit: contain;">
+        <p>{{origin.timestamp}}</p>
+        <br/>
         <div>latitude: {{origin.latitude}}</div>
         <div>longitude: {{origin.longitude}}</div>
         <div>heading: {{r7(origin.heading)}}</div>
         <div>elevation: {{r7(origin.elevation)}}</div>       
 
-        <ion-fab vertical="top" horizontal="end" slot="fixed">
-          <ion-fab-button size="small"  color="light" (click)="onClickRemove(pos)">
-            <ion-icon name="close-outline"></ion-icon>
-          </ion-fab-button>
-        </ion-fab>
+        <ion-icon name="close-outline" (click)="onClickRemove(pos)"
+        style="position: absolute; top:10px; right:10px; font-size: 20px;"></ion-icon>
 
       </ion-card-content>
 

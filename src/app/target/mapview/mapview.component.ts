@@ -25,7 +25,7 @@ export class MapviewComponent implements AfterViewInit {
     
     this.map = L.map('map', {
       center: [this.target.latitude, this.target.longitude],
-      zoom: 13
+      zoom: 16
     });
 
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -39,17 +39,17 @@ export class MapviewComponent implements AfterViewInit {
       color: 'red',
       fillColor: '#f03',
       fillOpacity: 0.5,
-      radius: 1
+      radius: 5
     }).addTo(this.map);
 
     circleT.bindPopup(this.target.title);
 
     this.target.arrOrigin.forEach((A, i) => {
       let circleA = L.circle([A.latitude, A.longitude], {
-        color: 'yellow',
+        color: 'blue',
         fillColor: '#f03',
         fillOpacity: 0.5,
-        radius: 1
+        radius: 5
       }).addTo(this.map);
 
       circleA.bindPopup(''+i);

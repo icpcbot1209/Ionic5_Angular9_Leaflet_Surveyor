@@ -37,17 +37,15 @@ export class TargetlistPage implements OnInit {
   }
 
   onClickAdd() {
-    let title = window.prompt("Please enter the title:", "");
-    if (title === null || title === "") {
-    } else {
-      this.targetService.addTarget({
-        title: title,
-        isMeasured: false,
-        latitude: 0,
-        longitude: 0,
-        arrOrigin: [],
-      });
-    }
+    this.targetService.addTarget({
+      title: "New Target",
+      isMeasured: false,
+      latitude: 0,
+      longitude: 0,
+      arrOrigin: [],
+    });
+
+    this.navigateTo(this.targetService.arrTarget.length-1);
   }
 
   onClickRemove(id) {

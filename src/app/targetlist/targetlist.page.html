@@ -13,24 +13,21 @@
     <ion-card 
       *ngFor="let target of targetService.arrTarget;  index as pos"
       (click)="navigateTo(pos)">
-      <ion-card-content>      
-        <ion-item style="display: flex;">
+      <ion-card-content  style="display: flex; border:10px double grey;">
           <ion-img 
             [src]="(target.arrOrigin.length>0 && target.arrOrigin[0].photoUrl!=='')? 
               target.arrOrigin[0].photoUrl : 
               'assets/surveyor.png'"
-            slot="start" 
-            style="height:100px; width:100px;">
+            slot="start" style="height:100px; width:100px;">
           </ion-img>
           
-          <ion-label style="flex:1;">
+          <ion-label style="flex:1; padding:10px">
             <h2>{{target.title}}</h2>
             <h3>latitude = {{r7(target.latitude)}}</h3>
             <h3>longitude = {{r7(target.longitude)}}</h3>
             <h3>height = {{r7(target.height)}} m</h3>
-            
           </ion-label>
-        </ion-item>
+
         <ion-fab vertical="top" horizontal="end" slot="fixed">
           <ion-fab-button size="small" color="light" (click)="onClickRemove(pos)">
             <ion-icon name="close-outline"></ion-icon>

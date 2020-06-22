@@ -29,7 +29,9 @@ export class HomePage implements OnInit {
 
     // read arrTarget
     this.targetService.readArrTarget(() => {
-      console.log(this.targetService.arrTarget);
+      setTimeout(() => { 
+        this.onClickStart();
+      }, 3000);
     });
   }
 }
