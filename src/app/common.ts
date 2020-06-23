@@ -1,5 +1,7 @@
 import * as geolib from "geolib";
 
+export const myGoogleApiKey = "AIzaSyDqJYTKHdC11avQQ4EPlt8m4OoSZ_N6JUw";
+
 export const adminEmail = "icpcbot1209@gmail.com";
 
 export const arr_target = [

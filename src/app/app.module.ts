@@ -19,6 +19,8 @@ import { ScreenOrientation } from "@ionic-native/screen-orientation/ngx";
 import { IonicStorageModule } from "@ionic/storage";
 import { EmailComposer } from "@ionic-native/email-composer/ngx";
 
+import { GoogleMaps } from "@ionic-native/google-maps";
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -38,7 +40,8 @@ import { EmailComposer } from "@ionic-native/email-composer/ngx";
     ScreenOrientation,
     EmailComposer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    GoogleMaps,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

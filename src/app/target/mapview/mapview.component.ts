@@ -22,11 +22,15 @@ export class MapviewComponent implements AfterViewInit {
   }
 
   private initMap(): void {
-    
-    this.map = L.map('map', {
-      center: [this.target.latitude, this.target.longitude],
-      zoom: 16
-    });
+
+    this.map = L.map('map'
+      // ,{
+      //   center: [this.target.latitude, this.target.longitude],
+      //   zoom: 15,
+      // }
+    );
+    let arrMarker = [];
+    arrMarker.push(L.marker([this.target.latitude, this.target.longitude]));
 
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
@@ -62,15 +66,25 @@ export class MapviewComponent implements AfterViewInit {
 
       let polygonA = L.polygon([
         [geoT.latitude, geoT.longitude],
-        [A.latitude, A.longitude]
+        [A.latitude, A.longitude],
       ]).addTo(this.map);
       let polygonB = L.polygon([
         [geoT.latitude, geoT.longitude],
-        [B.latitude, B.longitude]
+        [B.latitude, B.longitude],
       ]).addTo(this.map);
 
-    });
+      arrMarker.push(L.marker([geoT.latitude, geoT.longitude]));
+      arrMarker.push(L.marker([A.latitude, A.longitude]));
+      arrMarker.push(L.marker([B.latitude, B.longitude]));
 
+    });
+    
+    let group = L.featureGroup(arrMarker);
+    this.map.fitBounds(group.getBounds());
+    console.log(arrMarker);
+    // this.map.fitBounds(bounds);
+    // let group = new L.featureGroup(pnt_group);
+    // this.map.fitBounds(group.getBounds());
   }
 
 
