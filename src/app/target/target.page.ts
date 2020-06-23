@@ -47,7 +47,6 @@ export class TargetPage implements OnInit {
       } else {
         this.target = this.targetService.arrTarget[this.id];
       }
-
     });
   }
 
@@ -83,7 +82,19 @@ export class TargetPage implements OnInit {
     this.isShowMap = tf;
   }
 
-  r7 = (n) => {
-    return Math.round(n * 10000000) / 10000000;
+
+  isEditMap = false;
+  iOrigin = 0;
+  onClickEditOrigin(iOrigin) {
+    this.iOrigin = iOrigin;
+    this.toggleEditmap(true);
+  }
+  toggleEditmap(tf) {
+    this.isEditMap = tf;
+  }
+
+
+  r6 = (n) => {
+    return Math.round(n * 1000000) / 1000000;
   };
 }

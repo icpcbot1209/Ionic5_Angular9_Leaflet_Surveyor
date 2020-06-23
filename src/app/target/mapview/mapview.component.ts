@@ -23,40 +23,43 @@ export class MapviewComponent implements AfterViewInit {
 
   private initMap(): void {
 
-    this.map = L.map('map'
-      // ,{
-      //   center: [this.target.latitude, this.target.longitude],
-      //   zoom: 15,
-      // }
-    );
+    this.map = L.map('map');
     let arrMarker = [];
     arrMarker.push(L.marker([this.target.latitude, this.target.longitude]));
 
-    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    });
-
-    tiles.addTo(this.map);
-
-    let circleT = L.circle([this.target.latitude, this.target.longitude], {
-      color: 'red',
-      fillColor: '#f03',
-      fillOpacity: 0.5,
-      radius: 5
     }).addTo(this.map);
 
-    circleT.bindPopup(this.target.title);
+    let targetIcon = L.icon({
+      iconUrl: "assets/target.png",
+      iconSize: [30, 30], // size of the icon
+      iconAnchor: [15, 15], // point of the icon which will correspond to marker's location
+      popupAnchor: [-3, -15], // point from which the popup should open relative to the iconAnchor
+    });
+    L.marker([this.target.latitude, this.target.longitude], {
+      title: "Target",
+      icon:targetIcon,
+      alt: "+",
+      draggable: false
+    }).addTo(this.map).bindPopup(this.target.title);
+
+    let blueIcon = L.icon({
+      iconUrl: "assets/marker.png",
+      iconSize: [30, 30], // size of the icon
+      iconAnchor: [15, 25], // point of the icon which will correspond to marker's location
+      popupAnchor: [-3, -15], // point from which the popup should open relative to the iconAnchor
+    });
 
     this.target.arrOrigin.forEach((A, i) => {
-      let circleA = L.circle([A.latitude, A.longitude], {
-        color: 'blue',
-        fillColor: '#f03',
-        fillOpacity: 0.5,
-        radius: 5
-      }).addTo(this.map);
-
-      circleA.bindPopup(''+i);
+      L.marker([A.latitude, A.longitude], {
+        title: "Origin",
+        icon: blueIcon,
+        alt: "+",
+        draggable: false,
+        rotationAngle: A.heading,
+      }).addTo(this.map).bindPopup(''+i);
     });
 
     this.target.arrGeoT.forEach((geoT, k) => { 
@@ -81,10 +84,6 @@ export class MapviewComponent implements AfterViewInit {
     
     let group = L.featureGroup(arrMarker);
     this.map.fitBounds(group.getBounds());
-    console.log(arrMarker);
-    // this.map.fitBounds(bounds);
-    // let group = new L.featureGroup(pnt_group);
-    // this.map.fitBounds(group.getBounds());
   }
 
 

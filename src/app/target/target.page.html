@@ -17,25 +17,31 @@
     </ion-fab-button>
   </ion-fab>
 
-  <div *ngIf="!target.isMeasured" style="text-align: center;">To measure, at least 2 origin data required</div>
-  <div *ngIf="target.isMeasured">
-    <ion-card>
-      <ion-card-content style="border: 8px double grey;">
-        <strong (click)="editTitle()">{{target.title}}</strong>
-        <ion-icon name="create-outline" (click)="editTitle()"></ion-icon>
-        <hr />
-        <div>latitude: {{r7(target.latitude)}}</div>
-        <div>longitude: {{r7(target.longitude)}}</div>
-        <div>height: {{r7(target.height)}}</div>
-        
-        <ion-fab vertical="top" horizontal="end" slot="fixed">
-          <ion-fab-button (click)="toggleShowMap(true)">
-            <ion-icon name="location-outline"></ion-icon>
-          </ion-fab-button>
-        </ion-fab>
-      </ion-card-content>
-    </ion-card>
+  <ion-card>
+    <ion-card-content style="border: 8px double grey;">
+      <strong (click)="editTitle()">{{target.title}}</strong>
+      <ion-icon name="create-outline" (click)="editTitle()"></ion-icon>
+      <hr />
+      <div *ngIf="!target.isMeasured" style="text-align: center;">At least 2 measure required</div>
+      <div *ngIf="target.isMeasured">
+        <div>latitude: {{r6(target.latitude)}}</div>
+        <div>longitude: {{r6(target.longitude)}}</div>
+        <div>height: {{r6(target.height)}}</div>
+      </div>
+      
+      <ion-fab  *ngIf="target.isMeasured" vertical="top" horizontal="end" slot="fixed" style="z-index: 0;">
+        <ion-fab-button (click)="toggleShowMap(true)">
+          <ion-icon name="location-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </ion-card-content>
+  </ion-card>
+
+  <div *ngIf="target.arrOrigin.length===0">
+    <div style="text-align: center;">To calibrate your compass, <br/> wave your device in a figure-eight motion.</div>
+    <img [src]="'assets/calibrate.gif'" style="width:100vw; height:60vh; object-fit: contain;">
   </div>
+  
 
   <div style="display: flex; flex-wrap: wrap;">
     <ion-card
@@ -43,13 +49,21 @@
 
       <ion-card-content style="position: relative;">
         <div><strong>Origin {{pos+1}}</strong></div>
-        <img [src]="origin.photoUrl===''?'assets/surveyor.png':origin.photoUrl" style="width:100px; height:100px; object-fit: contain;">
+        
+        <div>
+          <img [src]="origin.photoUrl===''?'assets/surveyor.png':origin.photoUrl"
+            style="width:100px; height:100px; object-fit: contain;">
+
+          <ion-icon name="location-outline" style="float: right; margin-top:30px; font-size: large;"
+          (click)="onClickEditOrigin(pos)"></ion-icon>
+        </div>
+        
         <p>{{origin.timestamp}}</p>
         <br/>
         <div>latitude: {{origin.latitude}}</div>
         <div>longitude: {{origin.longitude}}</div>
-        <div>heading: {{r7(origin.heading)}}</div>
-        <div>elevation: {{r7(origin.elevation)}}</div>       
+        <div>heading: {{r6(origin.heading)}}</div>
+        <div>elevation: {{r6(origin.elevation)}}</div>       
 
         <ion-icon name="close-outline" (click)="onClickRemove(pos)"
         style="position: absolute; top:10px; right:10px; font-size: 20px;"></ion-icon>
@@ -68,5 +82,10 @@
 >
 </app-camview>
 
-<app-mapview [iTarget]="id" (closeMapview)="toggleShowMap(false)" *ngIf="isShowMap">
+<app-mapview *ngIf="isShowMap" (closeMapview)="toggleShowMap(false)" [iTarget]="id" >
 </app-mapview>
+
+<app-editmap *ngIf="isEditMap" (doClose)="toggleEditmap(false)"
+  [iTarget]="id" [iOrigin]="iOrigin" 
+>
+</app-editmap>

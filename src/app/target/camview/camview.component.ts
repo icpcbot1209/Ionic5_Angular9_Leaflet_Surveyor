@@ -127,7 +127,7 @@ export class CamviewComponent implements OnInit {
       this.isGeoLoaded = this.geolocService.isGeoLoaded;
       this.latitude = this.geolocService.latitude;
       this.longitude = this.geolocService.longitude;
-    }, 500);
+    }, 200);
   }
 
   heading = 0;

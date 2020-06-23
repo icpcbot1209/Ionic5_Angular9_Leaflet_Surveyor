@@ -53,6 +53,13 @@ export class TargetService {
     this.saveArrTarget();
   }
 
+  moveOrigin(iTarget, iOrigin, lat, lng) {
+    this.arrTarget[iTarget].arrOrigin[iOrigin].latitude = lat;
+    this.arrTarget[iTarget].arrOrigin[iOrigin].longitude = lng;
+    this.doCalc(iTarget);
+    this.saveArrTarget();
+  }
+
   removeOrigin(iTarget, iOrigin) {
     this.arrTarget[iTarget].arrOrigin.splice(iOrigin, 1);
     this.doCalc(iTarget);

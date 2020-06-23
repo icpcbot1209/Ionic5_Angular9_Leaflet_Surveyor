@@ -8,9 +8,15 @@ import { TargetPage } from './target.page';
 
 import { CamviewComponent } from "./camview/camview.component";
 import { MapviewComponent } from './mapview/mapview.component';
+import { EditmapComponent } from './editmap/editmap.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, TargetPageRoutingModule],
-  declarations: [TargetPage, CamviewComponent, MapviewComponent],
+  declarations: [
+    TargetPage,
+    CamviewComponent,
+    MapviewComponent,
+    EditmapComponent,
+  ],
 })
 export class TargetPageModule {}

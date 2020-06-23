@@ -23,9 +23,11 @@
           
           <ion-label style="flex:1; padding:10px">
             <h2>{{target.title}}</h2>
-            <h3>latitude = {{r7(target.latitude)}}</h3>
-            <h3>longitude = {{r7(target.longitude)}}</h3>
-            <h3>height = {{r7(target.height)}} m</h3>
+            <div *ngIf="target.isMeasured">
+              <h3>latitude = {{r7(target.latitude)}}</h3>
+              <h3>longitude = {{r7(target.longitude)}}</h3>
+              <h3>height = {{r7(target.height)}} m</h3>
+            </div>
           </ion-label>
 
         <ion-fab vertical="top" horizontal="end" slot="fixed">
