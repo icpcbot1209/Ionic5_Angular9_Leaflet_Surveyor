@@ -7,8 +7,9 @@ import {
   DeviceOrientationCompassHeading,
 } from "@ionic-native/device-orientation/ngx";
 
+import * as common from "../../common";
 import { TargetService } from "../../services/target.service";
-import * as common from '../../common';
+import { GeolocService } from 'src/app/services/geoloc.service';
 
 @Component({
   selector: "app-camview",
@@ -20,6 +21,7 @@ export class CamviewComponent implements OnInit {
   @Output() closeCamview: EventEmitter<any> = new EventEmitter();
 
   constructor(
+    private geolocService: GeolocService,
     private targetService: TargetService,
     private cameraPreview: CameraPreview,
     private geolocation: Geolocation,
@@ -40,7 +42,7 @@ export class CamviewComponent implements OnInit {
     try {
       this.startCamera();
       this.startGeolocation();
-      this.startDeviceOrientationLooking();
+      this.startHeading();
       this.startAngle();
     } catch (err) {
       console.log(err);
@@ -51,8 +53,8 @@ export class CamviewComponent implements OnInit {
     try {
       this.isCameraOn = false;
       await this.cameraPreview.stopCamera();
-      await this.processGeo.unsubscribe();
       await this.processHeading.unsubscribe();
+      await clearInterval(this.processGeo);
     } catch (err) {
       console.log(err);
     }
@@ -121,29 +123,17 @@ export class CamviewComponent implements OnInit {
   longitude = 0;
   processGeo = null;
   startGeolocation() {
-    this.geolocation
-      .getCurrentPosition()
-      .then((resp) => {
-        this.isGeoLoaded = true;
-        this.latitude = resp.coords.latitude;
-        this.longitude = resp.coords.longitude;
-      })
-      .catch((error) => {
-        console.log("Error getting location", error);
-      });
-
-    this.processGeo = this.geolocation.watchPosition();
-    this.processGeo.subscribe((data) => {
-      // data can be a set of coordinates, or an error (if an error occurred).
-      this.latitude = data.coords.latitude;
-      this.longitude = data.coords.longitude;
-    });
+    this.processGeo = setInterval(() => { 
+      this.isGeoLoaded = this.geolocService.isGeoLoaded;
+      this.latitude = this.geolocService.latitude;
+      this.longitude = this.geolocService.longitude;
+    }, 500);
   }
 
   heading = 0;
   processHeading = null;
 
-  startDeviceOrientationLooking() {
+  startHeading() {
     // Get the device current compass heading
     this.deviceOrientation.getCurrentHeading().then(
       (data: DeviceOrientationCompassHeading) => {
