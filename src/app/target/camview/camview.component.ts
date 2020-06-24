@@ -201,7 +201,7 @@ export class CamviewComponent implements AfterViewInit {
     setTimeout(() => { 
       this.map = L.map("map", {
         center: [this.latitude, this.longitude],
-        zoom: 13,
+        zoom: 17,
         attributionControl: false,
       });
 
@@ -215,9 +215,9 @@ export class CamviewComponent implements AfterViewInit {
       ).addTo(this.map);
 
       let blueIcon = L.icon({
-        iconUrl: "assets/marker.png",
-        iconSize: [30, 30], // size of the icon
-        iconAnchor: [15, 25], // point of the icon which will correspond to marker's location
+        iconUrl: "assets/marker_direction.png",
+        iconSize: [30, 1080], // size of the icon
+        iconAnchor: [15, 1065], // point of the icon which will correspond to marker's location
         popupAnchor: [-3, -15], // point from which the popup should open relative to the iconAnchor
       });
 
@@ -225,7 +225,7 @@ export class CamviewComponent implements AfterViewInit {
         title: "Origin",
         icon: blueIcon,
         alt: "+",
-        draggable: true,
+        draggable: false,
         rotationAngle: this.heading,
       }).addTo(this.map);
 

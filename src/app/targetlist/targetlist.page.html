@@ -4,7 +4,25 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
 
-    <ion-title>Target List</ion-title>
+    <div style="display: flex; align-items: center;">
+      <div style="flex:1;">
+        <ion-title>Survey List</ion-title>      
+      </div>
+      
+      <div>
+        <ion-button color="dark" (click)="sendResultEmail()"
+          [disabled]="arrIdHold.length===0">
+          <ion-icon name="share-social-outline"></ion-icon>
+        </ion-button>
+        <ion-button color="dark" (click)="onClickRemove()"
+          [disabled]="arrIdHold.length===0">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+        <ion-button color="dark" (click)="onClickAdd()">
+          <ion-icon name="add-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
   </ion-toolbar>
 </ion-header>
 
@@ -12,8 +30,11 @@
   <ion-list>
     <ion-card 
       *ngFor="let target of targetService.arrTarget;  index as pos"
-      (click)="navigateTo(pos)">
-      <ion-card-content  style="display: flex; border:10px double grey;">
+      (click)="toggleHold(pos)"
+      color="light"
+      [style.background-color]="isHold(pos)?'lightgrey':''"
+    >
+      <ion-card-content  style="display: flex;">
           <ion-img 
             [src]="(target.arrOrigin.length>0 && target.arrOrigin[0].photoUrl!=='')? 
               target.arrOrigin[0].photoUrl : 
@@ -31,27 +52,21 @@
             </div>
           </ion-label>
 
-        <ion-fab vertical="top" horizontal="end" slot="fixed">
-          <ion-fab-button size="small" color="light" (click)="onClickRemove(pos)">
-            <ion-icon name="close-outline"></ion-icon>
-          </ion-fab-button>
-        </ion-fab>
+          <ion-fab vertical="center" horizontal="end" slot="fixed">
+            <ion-fab-button color="dark" 
+              (click)="onClickEdit($event, pos)"
+            >
+              <!-- <ion-icon name="contract-outline"></ion-icon> -->
+              <ion-icon name="eye-outline"></ion-icon>
+              <!-- <ion-icon name="camera-outline"></ion-icon> -->
+            </ion-fab-button>
+          </ion-fab>
+
       </ion-card-content>
 
     </ion-card>
 
   </ion-list>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="dark" (click)="onClickAdd()">
-      <ion-icon name="add-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-
-  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button color="dark" (click)="sendResultEmail()">
-      <ion-icon name="send-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-
+  
 </ion-content>

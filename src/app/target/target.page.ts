@@ -50,10 +50,6 @@ export class TargetPage implements OnInit {
     });
   }
 
-  goBack() {
-    this.location.back();
-  }
-
   editTitle() {
     let title = window.prompt("Please enter the title:", "");
     if (title === null || title === "") {

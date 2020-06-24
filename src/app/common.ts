@@ -57,14 +57,16 @@ export const doCalc = (
     azi_BT = 190.3;
   }
 
+
+
   // pre compute
   let azi_AB = geolib.getRhumbLineBearing(geo_A, geo_B);
-  let azi_BA = Math.abs(180 + azi_AB);
-  let alpha_A = Alpha_Triangle(azi_AB - azi_AT);
+  let azi_BA = geolib.getRhumbLineBearing(geo_B, geo_A);
+  let alpha_A = Alpha_Triangle(azi_AT - azi_AB);
   let alpha_B = Alpha_Triangle(azi_BA - azi_BT);
-  let alpha_T = Alpha_Triangle(180 - alpha_A - alpha_B);
+  let alpha_T = 180 - alpha_A - alpha_B;
 
-  // validation
+  // determin whether  line_from_A  and  line_from_B  will intersect at one point T
   if (
     alpha_A < ALPHA_EPS ||
     alpha_B < ALPHA_EPS ||
@@ -91,7 +93,6 @@ export const doCalc = (
 
 const Alpha_Triangle = (alpha) => {
   while (alpha < 0) alpha += 360;
-  while (alpha >= 180) alpha = 360 - alpha;
   return alpha;
 }
 

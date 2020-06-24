@@ -9,8 +9,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CameraPreview } from '@ionic-native/camera-preview/ngx';
-import { Gyroscope } from "@ionic-native/gyroscope/ngx";
+import { AndroidPermissions } from "@ionic-native/android-permissions/ngx";
 import { Geolocation } from "@ionic-native/geolocation/ngx";
+import { LocationAccuracy } from "@ionic-native/location-accuracy/ngx";
 import {
   DeviceOrientation,
   DeviceOrientationCompassHeading,
@@ -34,7 +35,8 @@ import { GoogleMaps } from "@ionic-native/google-maps";
     StatusBar,
     SplashScreen,
     CameraPreview,
-    Gyroscope,
+    AndroidPermissions,
+    LocationAccuracy,
     Geolocation,
     DeviceOrientation,
     ScreenOrientation,

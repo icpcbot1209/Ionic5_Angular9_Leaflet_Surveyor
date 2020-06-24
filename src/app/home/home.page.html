@@ -1,11 +1,17 @@
-<ion-content [fullscreen]="true" color="light" (click)="onClickStart()">
-<div style="background-image: url('assets/back.jpg'); width:100%; height:100%; background-size:cover; background-position: center;"></div>
+<ion-content [fullscreen]="true" color="light" (click)="onClickPage()">
+  <div style="background-image: url('assets/back.jpg'); width:100%; height:100%; background-size:cover; background-position: center;">
+  </div>
   <div id="container">
     <ion-img [src]="'assets/surveyor.png'" style="width: 50vmin; margin:auto; margin-bottom: 50px;"></ion-img>
     <h1 style="color: grey;">SURVEYOR</h1>
     <br/>
     <br />
     <p><strong>DEMO VERSION</strong></p>
-    <!-- <ion-button style="width:50%;" color="light" size="large" (click)="onClickStart()">Start</ion-button> -->
+
+    <div *ngIf="!geolocService.isGeoLoaded">
+      <ion-spinner name="dots" color="secondary"></ion-spinner>
+      <br />
+      <strong>{{loadText}}</strong>
+    </div>
   </div>
 </ion-content>

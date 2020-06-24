@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Storage } from "@ionic/storage";
 
 import * as common from "../common";
-import { flushMicrotasks } from '@angular/core/testing';
 
 @Injectable({
   providedIn: "root",
@@ -35,10 +34,16 @@ export class TargetService {
 
   removeTarget(i) {
     let len = this.arrTarget.length;
-    this.arrTarget = [
-      ...this.arrTarget.slice(0, i),
-      ...this.arrTarget.slice(i + 1, len),
-    ];
+    this.arrTarget.splice(i, 1);
+    this.saveArrTarget();
+  }
+
+  removeTargets(arrId) {
+    let arr = [];
+    this.arrTarget.forEach((target, i) => { 
+      if (!arrId.includes(i)) arr.push(target);
+    });
+    this.arrTarget = arr;
     this.saveArrTarget();
   }
 
@@ -95,8 +100,7 @@ export class TargetService {
         let geo_B = { latitude: B.latitude, longitude: B.longitude };
         let azi_AT = A.heading;
         let azi_BT = B.heading;
-
-        arrPair.push({ i, j });
+        
         let geo_T = common.doCalc(geo_A, geo_B, azi_AT, azi_BT, false);
         if (!geo_T) continue;
 
@@ -105,6 +109,7 @@ export class TargetService {
         let L2 = common.distance(geo_B, geo_T);
         let H2 = L2 * Math.tan(common.deg2rad(B.elevation));
 
+        arrPair.push({ i, j });
         arrGeoT.push(geo_T);
         arrH.push(H1);
         arrH.push(H2);

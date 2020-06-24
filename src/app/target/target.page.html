@@ -9,16 +9,16 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="!isCam" class="ion-padding" fullscreen>
+<ion-content *ngIf="!isCam" fullscreen>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
     <ion-fab-button color="dark" (click)="onClickAdd()">
       <ion-icon name="camera"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
-  <ion-card>
-    <ion-card-content style="border: 8px double grey;">
+  <ion-card color="light">
+    <ion-card-content>
       <strong (click)="editTitle()">{{target.title}}</strong>
       <ion-icon name="create-outline" (click)="editTitle()"></ion-icon>
       <hr />
@@ -29,7 +29,7 @@
         <div>height: {{r6(target.height)}}</div>
       </div>
       
-      <ion-fab  *ngIf="target.isMeasured" vertical="top" horizontal="end" slot="fixed" style="z-index: 0;">
+      <ion-fab  *ngIf="target.arrOrigin.length!==0" vertical="top" horizontal="end" slot="fixed" style="z-index: 0;">
         <ion-fab-button (click)="toggleShowMap(true)">
           <ion-icon name="location-outline"></ion-icon>
         </ion-fab-button>

@@ -53,9 +53,9 @@ export class EditmapComponent implements AfterViewInit {
     tiles.addTo(this.map);
 
     let blueIcon = L.icon({
-      iconUrl: "assets/marker.png",
-      iconSize: [60, 60], // size of the icon
-      iconAnchor: [30, 50], // point of the icon which will correspond to marker's location
+      iconUrl: "assets/marker_direction.png",
+      iconSize: [30, 1080], // size of the icon
+      iconAnchor: [15, 1065], // point of the icon which will correspond to marker's location
       popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
     });
 

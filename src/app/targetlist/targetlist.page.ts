@@ -29,11 +29,13 @@ export class TargetlistPage implements OnInit {
     this.targetService.readArrTarget(() => {});
   }
 
-  goBack() {
-    this.location.back();
-  }
   navigateTo(id) {
     this.router.navigate(["/target", id]);
+  }
+
+  onClickEdit(evennt, id) {
+    event.stopPropagation();
+    this.navigateTo(id);
   }
 
   onClickAdd() {
@@ -45,21 +47,28 @@ export class TargetlistPage implements OnInit {
       arrOrigin: [],
     });
 
-    this.navigateTo(this.targetService.arrTarget.length-1);
+    this.navigateTo(this.targetService.arrTarget.length - 1);
   }
 
-  onClickRemove(id) {
-    if (window.confirm("Remove this target?")) {
-      this.targetService.removeTarget(id);
+  onClickRemove() {
+    if (window.confirm("Confirm Remove?")) {
+
+      // this.targetService.removeTarget(id);
+      this.targetService.removeTargets(this.arrIdHold);
+      this.arrIdHold = [];
     }
   }
 
   sendResultEmail() {
-    let arrTarget = JSON.parse(JSON.stringify(this.targetService.arrTarget));
-    arrTarget.forEach((target) => {
-      target.arrOrigin.forEach((origin) => {
-        origin.photoUrl = "";
-      });
+    let arrTarget = [];
+    this.targetService.arrTarget.forEach((target, i) => {
+      if (this.arrIdHold.includes(i)) {
+        let tt = JSON.parse(JSON.stringify(target));
+        tt.arrOrigin.forEach((origin) => {
+          origin.photoUrl = "";
+        });
+        arrTarget.push(tt);
+      }
     });
     let strContent = JSON.stringify(arrTarget);
 
@@ -96,8 +105,24 @@ export class TargetlistPage implements OnInit {
       }
     };
     reader.readAsDataURL(blob);
+
+    this.arrIdHold = [];
   }
-  
+
+  arrIdHold=[];
+  toggleHold(id) {
+    let k = this.arrIdHold.findIndex((x)=>x===id);
+    if (k < 0) {
+      this.arrIdHold.push(id);
+    } else {
+      this.arrIdHold.splice(k, 1);
+    }
+  }
+
+  isHold(id: number) {
+    return this.arrIdHold.includes(id);
+  }
+
   r7 = (n) => {
     return Math.round(n * 10000000) / 10000000;
   };
