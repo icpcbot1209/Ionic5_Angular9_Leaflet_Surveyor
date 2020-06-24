@@ -24,8 +24,8 @@
       <hr />
       <div *ngIf="!target.isMeasured" style="text-align: center;">At least 2 measure required</div>
       <div *ngIf="target.isMeasured">
-        <div>latitude: {{r6(target.latitude)}}</div>
-        <div>longitude: {{r6(target.longitude)}}</div>
+        <div>lat: {{r6(target.latitude)}}</div>
+        <div>lon: {{r6(target.longitude)}}</div>
         <div>height: {{r6(target.height)}}</div>
       </div>
       
@@ -60,10 +60,10 @@
         
         <p>{{origin.timestamp}}</p>
         <br/>
-        <div>latitude: {{origin.latitude}}</div>
-        <div>longitude: {{origin.longitude}}</div>
+        <div>lat: {{origin.latitude}}</div>
+        <div>lon: {{origin.longitude}}</div>
         <div>heading: {{r6(origin.heading)}}</div>
-        <div>elevation: {{r6(origin.elevation)}}</div>       
+        <div>elevation: {{r6(origin.elevation)}}</div>
 
         <ion-icon name="close-outline" (click)="onClickRemove(pos)"
         style="position: absolute; top:10px; right:10px; font-size: 20px;"></ion-icon>

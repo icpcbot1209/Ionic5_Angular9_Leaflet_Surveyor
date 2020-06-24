@@ -23,7 +23,7 @@ export class MapviewComponent implements AfterViewInit {
 
   private initMap(): void {
 
-    this.map = L.map('map');
+    this.map = L.map('map', {attributionControl: false});
     let arrMarker = [];
     arrMarker.push(L.marker([this.target.latitude, this.target.longitude]));
 

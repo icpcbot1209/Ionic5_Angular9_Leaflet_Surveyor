@@ -38,6 +38,7 @@ export class EditmapComponent implements AfterViewInit {
     this.map = L.map("map", {
       center: [this.origin.latitude, this.origin.longitude],
       zoom: 17,
+      attributionControl: false
     });
 
     const tiles = L.tileLayer(

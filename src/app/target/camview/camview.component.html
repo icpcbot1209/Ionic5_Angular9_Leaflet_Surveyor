@@ -15,15 +15,20 @@
     <ion-img src="assets/cursor.png"></ion-img>
   </div>
 
-  <div style="color: white;" class="ion-padding">
-    <div>latitude: {{latitude}}</div>
-    <div>longitude: {{longitude}}</div>
-    <div>heading: {{r7(heading)}}</div>
-    <div>elevation: {{r7(elevation)}}</div>
+  <div style="color: yellow; display: flex; align-items:flex-end;">
+    <div style="width:60vw; height:30vh; background-color: gray;"  id="map"></div>
+
+    <div style="flex:1;" class="ion-padding">
+      <div>lat: {{latitude}}</div>
+      <div>lon: {{longitude}}</div>
+      <div>heading: {{r7(heading)}}</div>
+      <div>elevation: {{r7(elevation)}}</div>
+    </div>
     <!-- <br />
     <div>alpha: {{r6(alpha)}}</div>
     <div>beta: {{r6(beta)}}</div>
     <div>gamma: {{r6(gamma)}}</div> -->
+
   </div>
 
   <div

@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  Input,
+  Output,
+  EventEmitter,
+} from "@angular/core";
+import * as L from "leaflet";
+import "leaflet-rotatedmarker";
 
 import { CameraPreview } from "@ionic-native/camera-preview/ngx";
 import { Geolocation } from "@ionic-native/geolocation/ngx";
@@ -16,7 +24,7 @@ import { GeolocService } from 'src/app/services/geoloc.service';
   templateUrl: "./camview.component.html",
   styleUrls: ["./camview.component.scss"],
 })
-export class CamviewComponent implements OnInit {
+export class CamviewComponent implements AfterViewInit {
   @Input() iTarget = 0;
   @Output() closeCamview: EventEmitter<any> = new EventEmitter();
 
@@ -28,7 +36,7 @@ export class CamviewComponent implements OnInit {
     private deviceOrientation: DeviceOrientation
   ) {}
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.startAll();
   }
 
@@ -44,6 +52,7 @@ export class CamviewComponent implements OnInit {
       this.startGeolocation();
       this.startHeading();
       this.startAngle();
+      this.startSmallMap();
     } catch (err) {
       console.log(err);
     }
@@ -123,10 +132,14 @@ export class CamviewComponent implements OnInit {
   longitude = 0;
   processGeo = null;
   startGeolocation() {
-    this.processGeo = setInterval(() => { 
+    this.processGeo = setInterval(() => {
       this.isGeoLoaded = this.geolocService.isGeoLoaded;
       this.latitude = this.geolocService.latitude;
       this.longitude = this.geolocService.longitude;
+      
+      try { 
+        this.marker.setLatLng([this.latitude, this.longitude]);
+      } catch (err) { console.log(err);}
     }, 200);
   }
 
@@ -149,23 +162,11 @@ export class CamviewComponent implements OnInit {
       .subscribe((data) => {
         // this.heading = data.magneticHeading;
         this.heading = data.trueHeading;
+        try { 
+          this.marker.setRotationAngle(this.heading);
+        } catch (err) { console.log(err);}
       });
-
-    // window.addEventListener(
-    //   "compassneedscalibration",
-    //   function (event) {
-    //     alert(
-    //       "Your compass needs calibrating! Wave your device in a figure-eight motion"
-    //     );
-    //     event.preventDefault();
-    //   },
-    //   true
-    // );
   }
-
-  // calibrate() {
-  //   window.dispatchEvent(new Event("compassneedscalibration"));
-  // }
 
   alpha = 0;
   beta = 0;
@@ -192,6 +193,43 @@ export class CamviewComponent implements OnInit {
         true
       );
     }
+  }
+
+  map = null;
+  marker = null;
+  startSmallMap() {
+    setTimeout(() => { 
+      this.map = L.map("map", {
+        center: [this.latitude, this.longitude],
+        zoom: 13,
+        attributionControl: false,
+      });
+
+      L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+          maxZoom: 19,
+          attribution:
+            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        }
+      ).addTo(this.map);
+
+      let blueIcon = L.icon({
+        iconUrl: "assets/marker.png",
+        iconSize: [30, 30], // size of the icon
+        iconAnchor: [15, 25], // point of the icon which will correspond to marker's location
+        popupAnchor: [-3, -15], // point from which the popup should open relative to the iconAnchor
+      });
+
+      this.marker = L.marker([this.latitude, this.longitude], {
+        title: "Origin",
+        icon: blueIcon,
+        alt: "+",
+        draggable: true,
+        rotationAngle: this.heading,
+      }).addTo(this.map);
+
+    }, 1000)
   }
 
   r7 = (n) => {
