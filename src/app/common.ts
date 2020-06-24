@@ -3,6 +3,9 @@ import * as geolib from "geolib";
 export const myGoogleApiKey = "AIzaSyDqJYTKHdC11avQQ4EPlt8m4OoSZ_N6JUw";
 
 export const adminEmail = "icpcbot1209@gmail.com";
+export const r6 = (n) => {
+  return Math.round(n * 1000000) / 1000000;
+};
 
 export const arr_target = [
   {
@@ -62,18 +65,24 @@ export const doCalc = (
   // pre compute
   let azi_AB = geolib.getRhumbLineBearing(geo_A, geo_B);
   let azi_BA = geolib.getRhumbLineBearing(geo_B, geo_A);
-  let alpha_A = Alpha_Triangle(azi_AT - azi_AB);
-  let alpha_B = Alpha_Triangle(azi_BA - azi_BT);
-  let alpha_T = 180 - alpha_A - alpha_B;
+  let alpha_A = azi_AT - azi_AB;
+  let alpha_B = azi_BA - azi_BT;
 
+  while (alpha_A < 0) alpha_A += 360;
+  while (alpha_B < 0) alpha_B += 360;
+  let alpha_T;
   // determin whether  line_from_A  and  line_from_B  will intersect at one point T
-  if (
-    alpha_A < ALPHA_EPS ||
-    alpha_B < ALPHA_EPS ||
-    alpha_T < ALPHA_EPS
-  ) {
-    return null;
+  console.log('qq', alpha_A, alpha_B);
+  if (!isValidTriangle(alpha_A, alpha_B)) {
+    
+    alpha_A *= -1;
+    alpha_B *= -1;
+    console.log('ww', alpha_A, alpha_B);
+    if (!isValidTriangle(alpha_A, alpha_B)) return null;
   }
+
+  alpha_T = 180 - alpha_A - alpha_B;  
+  console.log('rr', alpha_T);
 
   // geo_A, geo_B => len_AB
   let len_AB = geolib.getDistance(geo_A, geo_B, 0.1);
@@ -90,10 +99,16 @@ export const doCalc = (
   return geo_T;
 };
 
-
-const Alpha_Triangle = (alpha) => {
-  while (alpha < 0) alpha += 360;
-  return alpha;
+const isValidTriangle = (a, b) => {
+  let c = 180 - a - b 
+  return (
+    a > ALPHA_EPS &&
+    b > ALPHA_EPS &&
+    c > ALPHA_EPS &&
+    180 - a > ALPHA_EPS &&
+    180 - b > ALPHA_EPS &&
+    180 - c > ALPHA_EPS
+  );
 }
 
 export const getCenter = (arr) => { 

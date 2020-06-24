@@ -6,6 +6,7 @@ import {
   PathLocationStrategy,
 } from "@angular/common";
 import { TargetService } from "../services/target.service";
+import * as common from '../common';
 
 @Component({
   selector: "app-target",
@@ -13,6 +14,7 @@ import { TargetService } from "../services/target.service";
   styleUrls: ["./target.page.scss"],
 })
 export class TargetPage implements OnInit {
+  r6 = common.r6;
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -78,7 +80,6 @@ export class TargetPage implements OnInit {
     this.isShowMap = tf;
   }
 
-
   isEditMap = false;
   iOrigin = 0;
   onClickEditOrigin(iOrigin) {
@@ -88,9 +89,4 @@ export class TargetPage implements OnInit {
   toggleEditmap(tf) {
     this.isEditMap = tf;
   }
-
-
-  r6 = (n) => {
-    return Math.round(n * 1000000) / 1000000;
-  };
 }

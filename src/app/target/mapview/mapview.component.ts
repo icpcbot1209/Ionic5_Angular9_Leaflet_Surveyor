@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
 import { TargetService } from 'src/app/services/target.service';
+import * as common from '../../common';
 
 @Component({
   selector: "app-mapview",
@@ -10,7 +11,8 @@ import { TargetService } from 'src/app/services/target.service';
 export class MapviewComponent implements AfterViewInit {
   @Input() iTarget = 0;
   @Output() closeMapview: EventEmitter<any> = new EventEmitter();
-
+  r6 = common.r6;
+  
   target;
 
   constructor(private targetService: TargetService) {}
@@ -49,7 +51,10 @@ export class MapviewComponent implements AfterViewInit {
         alt: "+",
         draggable: false,
       });
-      this.markerTarget.addTo(this.map).bindTooltip(`${title}<br/>[${lat}, ${lng}]`).openTooltip();
+      this.markerTarget
+        .addTo(this.map)
+        .bindTooltip(`${title}<br/>[${this.r6(lat)}, ${this.r6(lng)}]`)
+        .openTooltip();
     }
   }
 
@@ -65,7 +70,6 @@ export class MapviewComponent implements AfterViewInit {
       attribution:
         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(this.map);
-
 
     let blueIcon = L.icon({
       iconUrl: "assets/marker_direction.png",
@@ -87,18 +91,18 @@ export class MapviewComponent implements AfterViewInit {
         .addTo(this.map)
         .on("dragend", (resp) => {
           let { lat, lng } = resp.target._latlng;
-          lat = this.r6(lat);
-          lng = this.r6(lng);
 
-          mm.bindTooltip(`Origin ${i}<br/>[${lat}, ${lng}]`).openTooltip();
+          mm.bindTooltip(
+            `Origin ${i + 1}<br/>[${this.r6(lat)}, ${this.r6(lng)}]`
+          );
           this.targetService.moveOrigin(this.iTarget, i, lat, lng);
           this.refreshMap();
         });
     });
-    
+
     if (this.target.isMeasured) {
       arrMarker.push(L.marker([this.target.latitude, this.target.longitude]));
-      
+
       this.setMarkerTarget(
         this.target.latitude,
         this.target.longitude,
@@ -121,7 +125,6 @@ export class MapviewComponent implements AfterViewInit {
 
         arrMarker.push(L.marker([geoT.latitude, geoT.longitude]));
       });
-
     }
 
     if (arrMarker.length > 1) {
@@ -138,8 +141,4 @@ export class MapviewComponent implements AfterViewInit {
   onClickClose() {
     this.closeMapview.emit();
   }
-
-  r6 = (n) => {
-    return Math.round(n * 1000000) / 1000000;
-  };
 }

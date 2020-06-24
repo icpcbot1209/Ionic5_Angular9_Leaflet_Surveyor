@@ -33,7 +33,7 @@ export class GeolocService {
     this.processGeo = this.geolocation.watchPosition();
     this.processGeo.subscribe((data) => {
       // data can be a set of coordinates, or an error (if an error occurred).
-      console.log(data.coords);
+      // console.log(data.coords);
       
       this.latitude = data.coords.latitude;
       this.longitude = data.coords.longitude;

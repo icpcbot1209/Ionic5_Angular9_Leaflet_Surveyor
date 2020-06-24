@@ -8,13 +8,15 @@ import {
 import * as L from "leaflet";
 import "leaflet-rotatedmarker";
 import { TargetService } from "src/app/services/target.service";
-    
+import * as common from '../../common';
+
 @Component({
   selector: "app-editmap",
   templateUrl: "./editmap.component.html",
   styleUrls: ["./editmap.component.scss"],
 })
 export class EditmapComponent implements AfterViewInit {
+  r6 = common.r6;
   @Input() iTarget = 0;
   @Input() iOrigin = 0;
   @Output() doClose: EventEmitter<any> = new EventEmitter();
@@ -69,18 +71,13 @@ export class EditmapComponent implements AfterViewInit {
       .addTo(this.map)
       .on("dragend", () => {
         let { lat, lng } = myMarker.getLatLng();
-        lat = this.r6(lat);
-        lng = this.r6(lng);
-
-        myMarker.bindTooltip(`[${lat}, ${lng}]`).openTooltip();
+        myMarker.bindTooltip(`[${this.r6(lat)}, ${this.r6(lng)}]`).openTooltip();
         this.moveOrigin(lat, lng);
       });
 
     let { lat, lng } = myMarker.getLatLng();
-    lat = this.r6(lat);
-    lng = this.r6(lng);
     myMarker
-      .bindTooltip("Drag to change location.<br/>" + `[${lat}, ${lng}]`, {
+      .bindTooltip("Drag to change location.<br/>" + `[${this.r6(lat)}, ${this.r6(lng)}]`, {
         opacity: 0.8,
         direction: "bottom",
         offset: L.point(0, 50),
@@ -89,10 +86,6 @@ export class EditmapComponent implements AfterViewInit {
       .openTooltip();
     // myMarker.setRotationAngle(newAngle);
   }
-
-  r6 = (n) => {
-    return Math.round(n * 1000000) / 1000000;
-  };
 
   moveOrigin(lat, lng) {
     this.targetService.moveOrigin(this.iTarget, this.iOrigin, lat, lng);

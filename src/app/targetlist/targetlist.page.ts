@@ -17,6 +17,8 @@ import * as common from '../common';
   styleUrls: ["./targetlist.page.scss"],
 })
 export class TargetlistPage implements OnInit {
+  r6 = common.r6;
+  
   constructor(
     private location: Location,
     private router: Router,
@@ -122,8 +124,4 @@ export class TargetlistPage implements OnInit {
   isHold(id: number) {
     return this.arrIdHold.includes(id);
   }
-
-  r7 = (n) => {
-    return Math.round(n * 10000000) / 10000000;
-  };
 }

@@ -27,7 +27,8 @@ import { GeolocService } from 'src/app/services/geoloc.service';
 export class CamviewComponent implements AfterViewInit {
   @Input() iTarget = 0;
   @Output() closeCamview: EventEmitter<any> = new EventEmitter();
-
+  r6 = common.r6;
+  
   constructor(
     private geolocService: GeolocService,
     private targetService: TargetService,
@@ -136,10 +137,12 @@ export class CamviewComponent implements AfterViewInit {
       this.isGeoLoaded = this.geolocService.isGeoLoaded;
       this.latitude = this.geolocService.latitude;
       this.longitude = this.geolocService.longitude;
-      
-      try { 
+
+      try {
         this.marker.setLatLng([this.latitude, this.longitude]);
-      } catch (err) { console.log(err);}
+      } catch (err) {
+        console.log(err);
+      }
     }, 200);
   }
 
@@ -162,9 +165,11 @@ export class CamviewComponent implements AfterViewInit {
       .subscribe((data) => {
         // this.heading = data.magneticHeading;
         this.heading = data.trueHeading;
-        try { 
+        try {
           this.marker.setRotationAngle(this.heading);
-        } catch (err) { console.log(err);}
+        } catch (err) {
+          console.log(err);
+        }
       });
   }
 
@@ -198,21 +203,18 @@ export class CamviewComponent implements AfterViewInit {
   map = null;
   marker = null;
   startSmallMap() {
-    setTimeout(() => { 
+    setTimeout(() => {
       this.map = L.map("map", {
         center: [this.latitude, this.longitude],
         zoom: 17,
         attributionControl: false,
       });
 
-      L.tileLayer(
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-        {
-          maxZoom: 19,
-          attribution:
-            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        }
-      ).addTo(this.map);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution:
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      }).addTo(this.map);
 
       let blueIcon = L.icon({
         iconUrl: "assets/marker_direction.png",
@@ -228,13 +230,8 @@ export class CamviewComponent implements AfterViewInit {
         draggable: false,
         rotationAngle: this.heading,
       }).addTo(this.map);
-
-    }, 1000)
+    }, 1000);
   }
-
-  r7 = (n) => {
-    return Math.round(n * 10000000) / 10000000;
-  };
 }
 
 
