@@ -37,7 +37,9 @@ export class MapviewComponent implements AfterViewInit {
 
   setMarkerTarget(lat, lng, title) {
     if (this.markerTarget) {
-      this.markerTarget.setLatLng(new L.LatLng(lat, lng));
+      this.markerTarget.setLatLng(new L.LatLng(lat, lng))
+        .bindTooltip(`${title}<br/>[${this.r6(lat)}, ${this.r6(lng)}]`)
+        .openTooltip();
     } else {
       let targetIcon = L.icon({
         iconUrl: "assets/target.png",

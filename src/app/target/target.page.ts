@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Platform } from '@ionic/angular';
 import { ActivatedRoute, Router } from "@angular/router";
 import {
   Location,
@@ -19,6 +20,7 @@ export class TargetPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private location: Location,
+    private platform: Platform,
     public targetService: TargetService
   ) {}
 
@@ -48,6 +50,14 @@ export class TargetPage implements OnInit {
         });
       } else {
         this.target = this.targetService.arrTarget[this.id];
+      }
+    });
+
+    this.platform.backButton.subscribeWithPriority(20, (processNextHandler) => { 
+      if (this.isCam || this.isShowMap || this.isEditMap) {
+        
+      } else {
+        processNextHandler();
       }
     });
   }
