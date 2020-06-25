@@ -92,7 +92,6 @@ export class TargetService {
       for (let j = 0; j < len; j++) {
         if (i == j || flag[i][j]) continue;
         flag[i][j] = true;
-        flag[j][i] = true;
         let A = target.arrOrigin[i];
         let B = target.arrOrigin[j];
 

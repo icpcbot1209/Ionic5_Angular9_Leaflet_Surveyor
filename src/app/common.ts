@@ -70,19 +70,11 @@ export const doCalc = (
 
   while (alpha_A < 0) alpha_A += 360;
   while (alpha_B < 0) alpha_B += 360;
-  let alpha_T;
-  // determin whether  line_from_A  and  line_from_B  will intersect at one point T
-  console.log('qq', alpha_A, alpha_B);
-  if (!isValidTriangle(alpha_A, alpha_B)) {
-    
-    alpha_A *= -1;
-    alpha_B *= -1;
-    console.log('ww', alpha_A, alpha_B);
-    if (!isValidTriangle(alpha_A, alpha_B)) return null;
-  }
 
-  alpha_T = 180 - alpha_A - alpha_B;  
-  console.log('rr', alpha_T);
+  // determin whether  line_from_A  and  line_from_B  will intersect at one point T
+  if (!isValidTriangle(alpha_A, alpha_B)) return null;
+
+  let alpha_T = 180 - alpha_A - alpha_B;  
 
   // geo_A, geo_B => len_AB
   let len_AB = geolib.getDistance(geo_A, geo_B, 0.1);
