@@ -18,7 +18,7 @@ export class HomePage implements OnInit {
     private router: Router,
     private screenOrientation: ScreenOrientation,
     private targetService: TargetService,
-    private geolocService: GeolocService,
+    public geolocService: GeolocService,
     private androidPermissions: AndroidPermissions,
     private locationAccuracy: LocationAccuracy,
     private geolocation: Geolocation,

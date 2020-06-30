@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="gov.dc.surveyor" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="gov.dc.surveyor" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Surveyor</name>
     <description>Survey The Horizon.</description>
     <author email="info@pureenginering.com" href="http://pureengineering.com">Pure Engineering</author>
-    <content original-src="index.html" src="http://localhost:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -108,4 +108,5 @@
         <string>We use your location for full functionality of certain app features.</string>
     </edit-config>
     <engine name="android" spec="8.1.0" />
+    <engine name="browser" spec="6.0.0" />
 </widget>
