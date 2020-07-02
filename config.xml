@@ -2,11 +2,7 @@
 <widget id="gov.dc.surveyor" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Surveyor</name>
     <description>Survey The Horizon.</description>
-<<<<<<< HEAD
     <author email="info@pureenginering.com" href="http://pureengineering.com">Pure Engineering</author>
-=======
-    <author email="info@pureenginering.com" href="http://pureengineering.com">Pure Engineering</author>
->>>>>>> 135167b... bug fix, plugin reinstalled one by one
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
