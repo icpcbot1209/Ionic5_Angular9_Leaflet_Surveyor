@@ -2,7 +2,11 @@
 <widget id="gov.dc.surveyor" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Surveyor</name>
     <description>Survey The Horizon.</description>
+<<<<<<< HEAD
     <author email="info@pureenginering.com" href="http://pureengineering.com">Pure Engineering</author>
+=======
+    <author email="info@pureenginering.com" href="http://pureengineering.com">Pure Engineering</author>
+>>>>>>> 135167b... bug fix, plugin reinstalled one by one
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -11,8 +15,6 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyDqJYTKHdC11avQQ4EPlt8m4OoSZ_N6JUw" />
-    <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyDqJYTKHdC11avQQ4EPlt8m4OoSZ_N6JUw" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="android-minSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="none" />
@@ -101,6 +103,7 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
+<<<<<<< HEAD
     <allow-navigation href="http://192.168.3.115:8081" sessionid="684ae65b" />
     <allow-navigation href="http://192.168.3.115:8100" sessionid="b2fe1755" />
     <allow-navigation href="http://localhost:8100" sessionid="b97ff2bb" />
@@ -109,4 +112,6 @@
     </edit-config>
     <engine name="android" spec="8.1.0" />
     <engine name="browser" spec="6.0.0" />
+=======
+>>>>>>> 135167b... bug fix, plugin reinstalled one by one
 </widget>

@@ -23,12 +23,7 @@ const routes: Routes = [
     path: "target/:id",
     loadChildren: () =>
       import("./target/target.module").then((m) => m.TargetPageModule),
-  },
-  {
-    path: "test",
-    loadChildren: () =>
-      import("./test/test.module").then((m) => m.TestPageModule),
-  },
+  }
 ];
 
 @NgModule({
